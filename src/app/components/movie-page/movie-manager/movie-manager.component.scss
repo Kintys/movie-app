@@ -1,0 +1,35 @@
+.movie-manager {
+    // .movie-manager__container
+    max-width: 1400px;
+    &__container {
+        padding: 10px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    // .movie-manager__card-list
+    &__card-list {
+        display: flex;
+        gap: 10px;
+    }
+}
+.items-list {
+    display: grid;
+    grid-template-columns: repeat(2, 450px);
+    justify-content: space-between;
+    align-items: start;
+    // .items-list__list-block
+
+    &__list-block {
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    // .items-list__title
+
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+}

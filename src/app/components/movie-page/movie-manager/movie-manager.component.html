@@ -1,0 +1,23 @@
+<div class="movie-manager">
+    <div class="movie-manager__container">
+        <ul class="movie-manager__card-list card-list">
+            <li *ngFor="let movieItem of movieList" class="card-list__items">
+                <app-movie-card [dataValue]="movieItem" (addFavoriteItemId)="addItemToFavoriteList($event)" (addWishItemId)="addItemToWishList($event)"></app-movie-card>
+            </li>
+        </ul>
+        <div class="movie-manager__content-list items-list">
+            <div class="items-list__list-block">
+                <h3 class="items-list__title">{{favoriteTitle}}</h3>
+                <ul>
+                    <li *ngFor="let item of favoriteList"><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromFavoriteList($event)"></app-movie-list-item></li>
+                </ul>
+            </div>
+            <div class="items-list__list-block">
+                <ul class="items-list__wish-list">
+                    <h3 class="items-list__title">{{wishListTitle}}</h3>
+                    <li *ngFor="let item of wishList"><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromWishList($event)"></app-movie-list-item></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
