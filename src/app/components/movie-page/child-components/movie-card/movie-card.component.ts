@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 interface Movie {
@@ -16,14 +16,19 @@ interface Movie {
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
 })
-export class MovieCardComponent {
-  @Input() dataValue: undefined | Movie | any;
+export class MovieCardComponent implements OnInit {
+  @Input() dataValue: Movie | undefined;
   @Output() addFavoriteItemId = new EventEmitter<string>();
   @Output() addWishItemId = new EventEmitter<string>();
   //===========================================================
-  favoriteIcon = faStar;
-  wishListIcon = faHeart;
-  ratingTitle: string = 'rating';
+  public cardData: any;
+  ngOnInit() {
+    this.cardData = this.dataValue;
+  }
+  //===========================================================
+  public favoriteIcon = faStar;
+  public wishListIcon = faHeart;
+  public ratingTitle: string = 'rating';
   //===========================================================
   addToFavoriteList(id: string) {
     this.addFavoriteItemId.emit(id);

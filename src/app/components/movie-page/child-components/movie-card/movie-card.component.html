@@ -1,16 +1,16 @@
 <div class="card">
     <article class="card__container">
-        <img [src]="dataValue.imgSrc" class="card__image" alt="Image">
+        <img [src]="cardData.imgSrc" class="card__image" alt="Image">
         <div class="card__content content-card">
-            <h3 class="content-card__title">{{dataValue.title}}</h3>
+            <h3 class="content-card__title">{{cardData.title}}</h3>
             <p class="content-card__description">
-                <a [href]="dataValue.link">{{dataValue.description}}</a>
+                <a [href]="cardData.link">{{cardData.description}}</a>
             </p>
-            <div class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{dataValue.rating}}</span></div>
+            <div class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{cardData.rating}}</span></div>
             <div class="content-card__actions actions-card">
-                <button (click)="addToFavoriteList(dataValue.id)" class="actions-card__fauvorite-btn button">
+                <button (click)="addToFavoriteList(cardData.id)" class="actions-card__fauvorite-btn button">
                     <fa-icon [icon]="favoriteIcon"></fa-icon></button>
-                <button (click)="addToWishList(dataValue.id)" class="actions-card__with-list-btn button">
+                <button (click)="addToWishList(cardData.id)" class="actions-card__with-list-btn button">
                     <fa-icon [icon]="wishListIcon"></fa-icon>
                 </button>
             </div>

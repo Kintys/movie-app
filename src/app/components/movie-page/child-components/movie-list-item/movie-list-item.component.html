@@ -1,8 +1,8 @@
 <div class="movie-item">
     <div class="movie-item__container">
-        <img [src]="dataItem.imgSrc" alt="Image" class="movie-item__img">
-        <h4 class="movie-item__title">{{dataItem.title}}</h4>
-        <div class="movie-item__rating">{{dataItem.rating}}</div>
-        <button (click)="deleteItemById(dataItem.id) " class="movie-item__button button"><fa-icon [icon]="deleteIcon"></fa-icon></button>
+        <img [src]="itemData.imgSrc" alt="Image" class="movie-item__img">
+        <h4 class="movie-item__title">{{itemData.title}}</h4>
+        <div class="movie-item__rating">{{itemData.rating}}</div>
+        <button (click)="deleteItemById(itemData.id) " class="movie-item__button button"><fa-icon [icon]="deleteIcon"></fa-icon></button>
     </div>
 </div>

@@ -20,30 +20,36 @@ interface Movie {
   styleUrl: './movie-manager.component.scss',
 })
 export class MovieManagerComponent {
-  movieList = movieList;
-  favoriteList: any = [];
-  wishList: any = [];
-  favoriteTitle: string = 'your favorite list';
-  wishListTitle: string = 'your wish list';
+  public movieList: Movie[] = movieList;
+  public favoriteList: any = [];
+  public wishList: any = [];
+  //===========================================================
+  public favoriteTitle: string = 'your favorite list';
+  public wishListTitle: string = 'your wish list';
+  //===========================================================
   addItemToFavoriteList(id: string) {
     const item: Movie | undefined = this.movieList.find(
       (item) => item.id === id
     );
-    if (item)
+    if (!item) return;
+    else {
       this.favoriteList.push({
         ...item,
         id: uuidv4(),
       });
+    }
   }
   addItemToWishList(id: string) {
     const item: Movie | undefined = this.movieList.find(
       (item) => item.id === id
     );
-    if (item)
+    if (!item) return;
+    else {
       this.wishList.push({
         ...item,
         id: uuidv4(),
       });
+    }
   }
   deleteItemFromFavoriteList(id: string) {
     this.favoriteList = this.favoriteList.filter(
