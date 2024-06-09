@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { movieList } from '../dataMovie';
-import { CommonModule } from '@angular/common';
 import { MovieListItemComponent } from '../child-components/movie-list-item/movie-list-item.component';
 import { MovieCardComponent } from '../child-components/movie-card/movie-card.component';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,7 +14,7 @@ interface Movie {
 @Component({
   selector: 'app-movie-manager',
   standalone: true,
-  imports: [MovieCardComponent, MovieListItemComponent, CommonModule],
+  imports: [MovieCardComponent, MovieListItemComponent],
   templateUrl: './movie-manager.component.html',
   styleUrl: './movie-manager.component.scss',
 })
@@ -28,28 +27,10 @@ export class MovieManagerComponent {
   public wishListTitle: string = 'your wish list';
   //===========================================================
   addItemToFavoriteList(id: string) {
-    const item: Movie | undefined = this.movieList.find(
-      (item) => item.id === id
-    );
-    if (!item) return;
-    else {
-      this.favoriteList.push({
-        ...item,
-        id: uuidv4(),
-      });
-    }
+    this.addItemToSomeList(id, this.movieList, this.favoriteList);
   }
   addItemToWishList(id: string) {
-    const item: Movie | undefined = this.movieList.find(
-      (item) => item.id === id
-    );
-    if (!item) return;
-    else {
-      this.wishList.push({
-        ...item,
-        id: uuidv4(),
-      });
-    }
+    this.addItemToSomeList(id, this.movieList, this.wishList);
   }
   deleteItemFromFavoriteList(id: string) {
     this.favoriteList = this.favoriteList.filter(
@@ -58,5 +39,15 @@ export class MovieManagerComponent {
   }
   deleteItemFromWishList(id: string) {
     this.wishList = this.wishList.filter((item: Movie) => item.id !== id);
+  }
+  addItemToSomeList(id: string, movieList: Movie[], newArr: any) {
+    const item = movieList.find((item: Movie) => item.id === id);
+    if (!item) return;
+    else {
+      newArr.push({
+        ...item,
+        id: uuidv4(),
+      });
+    }
   }
 }
