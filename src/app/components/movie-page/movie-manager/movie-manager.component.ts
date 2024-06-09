@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { movieList } from '../dataMovie';
 import { MovieListItemComponent } from '../child-components/movie-list-item/movie-list-item.component';
 import { MovieCardComponent } from '../child-components/movie-card/movie-card.component';
-import { v4 as uuidv4 } from 'uuid';
 interface Movie {
   id: string;
   link: string;
@@ -41,13 +40,9 @@ export class MovieManagerComponent {
     this.wishList = this.wishList.filter((item: Movie) => item.id !== id);
   }
   addItemToSomeList(id: string, movieList: Movie[], newArr: any) {
-    const item = movieList.find((item: Movie) => item.id === id);
-    if (!item) return;
-    else {
-      newArr.push({
-        ...item,
-        id: uuidv4(),
-      });
-    }
+    const foundObj = movieList.find((item: Movie) => item.id === id);
+    const hasObj = newArr.some((item: Movie) => item.id === id);
+    if (foundObj && !hasObj) newArr.push(foundObj);
+    else return;
   }
 }

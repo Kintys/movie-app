@@ -11,7 +11,7 @@
             <div class="items-list__list-block">
                 <h3 class="items-list__title">{{favoriteTitle}}</h3>
                 <ul>
-                    @for (item of favoriteList; track item.id){
+                    @for (item of favoriteList; track item){
                     <li><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromFavoriteList($event)"></app-movie-list-item></li>
                     }
                 </ul>
@@ -19,7 +19,7 @@
             <div class="items-list__list-block">
                 <ul class="items-list__wish-list">
                     <h3 class="items-list__title">{{wishListTitle}}</h3>
-                    @for (item of wishList; track item.id){
+                    @for (item of wishList; track item){
                     <li><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromWishList($event)"></app-movie-list-item></li>}
                 </ul>
             </div>
