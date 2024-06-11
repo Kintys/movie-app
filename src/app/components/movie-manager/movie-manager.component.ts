@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { movieList } from '../dataMovie';
-import { MovieListItemComponent } from '../child-components/movie-list-item/movie-list-item.component';
-import { MovieCardComponent } from '../child-components/movie-card/movie-card.component';
+import { MovieListItemComponent } from '../movie-list-item/movie-list-item.component';
+import { MovieCardComponent } from '../movie-card/movie-card.component';
 interface Movie {
   id: string;
   link: string;

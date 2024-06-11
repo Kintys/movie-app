@@ -8,6 +8,7 @@
             }
         </ul>
         <div class="movie-manager__content-list items-list">
+            @if(favoriteList.length){
             <div class="items-list__list-block">
                 <h3 class="items-list__title">{{favoriteTitle}}</h3>
                 <ul>
@@ -16,6 +17,8 @@
                     }
                 </ul>
             </div>
+            }
+            @if(wishList.length){
             <div class="items-list__list-block">
                 <ul class="items-list__wish-list">
                     <h3 class="items-list__title">{{wishListTitle}}</h3>
@@ -23,6 +26,7 @@
                     <li><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromWishList($event)"></app-movie-list-item></li>}
                 </ul>
             </div>
+            }
         </div>
     </div>
 </div>
