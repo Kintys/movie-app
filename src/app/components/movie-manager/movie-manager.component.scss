@@ -1,12 +1,4 @@
 .movie-manager {
-    // .movie-manager__container
-    max-width: 1400px;
-    &__container {
-        padding: 10px;
-        margin: 0 auto;
-        width: 100%;
-    }
-    // .movie-manager__card-list
     &__card-list {
         display: flex;
         gap: 10px;
