@@ -2,11 +2,11 @@
     <img [src]="cardData?.imgSrc" class="card__image" alt="Image">
     <div class="card__content content-card">
         <h3 class="content-card__title">{{cardData?.title }}</h3>
-        <p class="content-card__description">
-            <a [href]="cardData?.link">{{cardData!.description | titleMaxLength}}</a>
-        </p>
+        <a class="content-card__description">
+            <p appHiddenText [maxLengthValue]="100">{{cardData!.description }}</p>
+        </a>
         <p class="content-card__time">{{ cardData!.time | timeMovieFormat}}</p>
-        <div class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{cardData!.rating | ratingSeparation}}</span></div>
+        <a [href]="cardData?.link" class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{cardData!.rating | ratingSeparation}}</span></a>
         <div class="content-card__actions actions-card">
             <button (click)="addToFavoriteList(cardData!.id)" class="actions-card__fauvorite-btn button">
                 <fa-icon [icon]="favoriteIcon"></fa-icon></button>

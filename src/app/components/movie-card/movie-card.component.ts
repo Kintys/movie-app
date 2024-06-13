@@ -5,6 +5,8 @@ import { Movie } from '../../dataValues/dataMovie';
 import { TimeMovieFormatPipe } from '../../pipes/time-movie-format/time-movie-format.pipe';
 import { RatingSeparationPipe } from '../../pipes/rating-format/rating-separation.pipe';
 import { TitleMaxLengthPipe } from '../../pipes/title-formater/title-max-length.pipe';
+import { HiddenTextDirective } from '../../directives/hidden-text.directive';
+
 @Component({
   selector: 'app-movie-card',
   standalone: true,
@@ -15,6 +17,7 @@ import { TitleMaxLengthPipe } from '../../pipes/title-formater/title-max-length.
     TimeMovieFormatPipe,
     RatingSeparationPipe,
     TitleMaxLengthPipe,
+    HiddenTextDirective,
   ],
 })
 export class MovieCardComponent implements OnInit {

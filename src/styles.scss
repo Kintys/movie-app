@@ -99,3 +99,16 @@ $responsiveType: 1;
 body {
     margin: 0;
 }
+.show-more {
+    color: yellow;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.show-less {
+    margin-right: toRem(10);
+    &:hover {
+        text-decoration: underline;
+    }
+}
