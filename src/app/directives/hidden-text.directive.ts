@@ -34,7 +34,7 @@ export class HiddenTextDirective implements OnInit, AfterViewInit {
     );
     this.el.nativeElement.innerHTML = this.currentText;
   }
-  // Поясніть будь ласка, чому відпрацьовує подія.??
+  // Поясніть будь ласка, чому не відпрацьовує подія.??
   @HostListener('click', ['$event.target'])
   onClick(target: HTMLElement): void {
     if (target === this.showMoreBtn) {
