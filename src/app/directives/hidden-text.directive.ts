@@ -5,13 +5,14 @@ import {
   OnInit,
   Input,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 
 @Directive({
   selector: '[appHiddenText]',
   standalone: true,
 })
-export class HiddenTextDirective implements OnInit, AfterViewInit {
+export class HiddenTextDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input() maxLengthValue: number | undefined;
   private fullTextValue: string | undefined;
   private currentText: string | undefined;
@@ -33,6 +34,9 @@ export class HiddenTextDirective implements OnInit, AfterViewInit {
     );
     this.el.nativeElement.innerHTML = this.currentText;
     this.onClick();
+  }
+  ngOnDestroy(): void {
+    this.el.nativeElement.offsetParent.removeEventListener();
   }
   // Поки ще не розібрався з HostListener, зробив погано ((
   private onClick(): void {
