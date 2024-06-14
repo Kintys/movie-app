@@ -5,7 +5,6 @@ import {
   OnInit,
   Input,
   AfterViewInit,
-  HostListener,
 } from '@angular/core';
 
 @Directive({
@@ -33,23 +32,28 @@ export class HiddenTextDirective implements OnInit, AfterViewInit {
       this.maxLength
     );
     this.el.nativeElement.innerHTML = this.currentText;
+    this.onClick();
   }
-  // Поясніть будь ласка, чому не відпрацьовує подія.??
-  @HostListener('click', ['$event.target'])
-  onClick(target: HTMLElement): void {
-    if (target === this.showMoreBtn) {
-      this.el.nativeElement.innerHTML = this.fullTextValue;
-      this.renderer.setStyle(this.showMoreBtn, 'display', 'none');
-      this.renderer.setStyle(this.showLessBtn, 'display', 'block');
-    } else if (target === this.showLessBtn) {
-      this.el.nativeElement.innerHTML = this.currentText!;
-      this.renderer.setStyle(this.showLessBtn, 'display', 'none');
-      this.renderer.setStyle(this.showMoreBtn, 'display', 'block');
-    }
+  // Поки ще не розібрався з HostListener, зробив погано ((
+  private onClick(): void {
+    this.el.nativeElement.offsetParent.addEventListener(
+      'click',
+      (e: { target: HTMLElement | undefined }) => {
+        if (e.target === this.showMoreBtn) {
+          this.el.nativeElement.innerHTML = this.fullTextValue;
+          this.renderer.setStyle(this.showMoreBtn, 'display', 'none');
+          this.renderer.setStyle(this.showLessBtn, 'display', 'block');
+        } else if (e.target === this.showLessBtn) {
+          this.el.nativeElement.innerHTML = this.currentText!;
+          this.renderer.setStyle(this.showLessBtn, 'display', 'none');
+          this.renderer.setStyle(this.showMoreBtn, 'display', 'block');
+        }
+      }
+    );
   }
 
   private createElement(className: string, buttonName: string): HTMLElement {
-    const element = this.renderer.createElement('button');
+    const element = this.renderer.createElement('a');
     this.renderer.addClass(element, `${className}`);
     element.innerHTML = buttonName;
     this.renderer.setStyle(element, 'display', 'none');
