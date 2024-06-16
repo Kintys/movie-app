@@ -8,10 +8,9 @@ describe('MasterPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MasterPageComponent]
-    })
-    .compileComponents();
-    
+      imports: [MasterPageComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(MasterPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -21,3 +20,4 @@ describe('MasterPageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+//           <button (click)="deleteItemById(itemData!.id) " class="movie-item__button button"><fa-icon [icon]="deleteIcon"></fa-icon></button>

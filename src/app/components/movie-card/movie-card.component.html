@@ -1,18 +1,23 @@
-<article class="card">
-    <img [src]="cardData?.imgSrc" class="card__image" alt="Image">
-    <div class="card__content content-card">
-        <h3 class="content-card__title">{{cardData?.title }}</h3>
-        <a class="content-card__description">
-            <p appHiddenText [maxLengthValue]="100">{{cardData!.description }}</p>
+<p-card [header]="cardData?.title" class="card">
+    <ng-template pTemplate="header">
+        <a [href]="cardData?.link" class="content-card__rating rating">
+            <img [src]="cardData?.imgSrc" class="card__image" alt="Image">
         </a>
-        <p class="content-card__time">{{ cardData!.time | timeMovieFormat}}</p>
-        <a [href]="cardData?.link" class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{cardData!.rating | ratingSeparation}}</span></a>
-        <div class="content-card__actions actions-card">
-            <button (click)="addToFavoriteList(cardData!.id)" class="actions-card__fauvorite-btn button">
-                <fa-icon [icon]="favoriteIcon"></fa-icon></button>
-            <button (click)="addToWishList(cardData!.id)" class="actions-card__with-list-btn button">
-                <fa-icon [icon]="wishListIcon"></fa-icon>
-            </button>
+    </ng-template>
+    <p-rating [ngModel]="rating" stars="5" [readonly]="true" [cancel]="false" />
+    <div class="card__content content-card">
+        <div class="content-card__description">
+            <p appHiddenText [maxLengthValue]="100">{{cardData!.description }}</p>
         </div>
+        <p class="content-card__time"><i class="pi pi-clock"></i>{{ cardData!.time | timeMovieFormat}}</p>
     </div>
-</article>
+    <ng-template pTemplate="footer">
+        <div class="content-card__actions actions-card">
+            <p-button icon="fa favoriteIcon" (click)="addToFavoriteList(cardData!.id)" class="actions-card__fauvorite-btn button">
+                <fa-icon [icon]="favoriteIcon"></fa-icon></p-button>
+            <p-button (click)="addToWishList(cardData!.id)" class="actions-card__with-list-btn button">
+                <fa-icon [icon]="wishListIcon"></fa-icon>
+            </p-button>
+        </div>
+    </ng-template>
+</p-card>

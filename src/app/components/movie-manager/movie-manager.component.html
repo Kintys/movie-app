@@ -1,12 +1,10 @@
 <div class="movie-manager">
     <div class="movie-manager__container">
-        <ul class="movie-manager__card-list card-list">
-            @for (movieItem of movieList; track movieItem.id){
-            <li class="card-list__items">
-                <app-movie-card [dataValue]="movieItem" (addFavoriteItemId)="addItemToFavoriteList($event)" (addWishItemId)="addItemToWishList($event)"></app-movie-card>
-            </li>
-            }
-        </ul>
+        <p-carousel [value]="movieList" [numVisible]="3" [numScroll]="1" [circular]="true" autoplayInterval="3000" class="movie-manager__card-list card-list">
+            <ng-template let-movieItem pTemplate="item">
+                <app-movie-card [dataValue]="movieItem" (addFavoriteItemId)="addItemToFavoriteList($event)" (addWishItemId)="addItemToWishList($event)" class="card-list__items"></app-movie-card>
+            </ng-template>
+        </p-carousel>
         <div class="movie-manager__content-list items-list">
             @if(favoriteList?.length){
             <div class="items-list__list-block">
