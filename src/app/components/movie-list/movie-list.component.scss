@@ -1,9 +1,22 @@
 .movie-manager {
-    &__card-list {
-        display: flex;
-        gap: 10px;
+    // .movie-manager__container
+
+    &__container {
+        padding-top: 80px;
     }
 }
+.card-list {
+    ::ng-deep {
+        .p-carousel {
+            max-width: 1410px;
+        }
+        .p-carousel-items-content {
+            margin-left: 30px;
+            padding-bottom: 10px;
+        }
+    }
+}
+
 .items-list {
     display: grid;
     grid-template-columns: repeat(2, 450px);
@@ -12,7 +25,6 @@
     // .items-list__list-block
 
     &__list-block {
-        border: 1px solid black;
         border-radius: 10px;
         text-align: center;
     }

@@ -1,0 +1,17 @@
+<div class="wrapper" [class.bg-while]="selectBgColor==='while'" [class.bg-black]="selectBgColor==='black'">
+    <header class="header">
+        <div class="header__container">
+            <div class="header__logo">
+                <img src="../../assets/img/logo1.png" alt="Image" class="header__img">
+            </div>
+            <div class="header__action">
+                <button (click)="selectBgColor='while'" class="button">while</button>
+                <button (click)="selectBgColor='black'" class="button">black</button>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <ng-content></ng-content>
+    </main>
+    <footer class="footer"></footer>
+</div>
