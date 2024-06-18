@@ -1,0 +1,30 @@
+<div class="movie-manager">
+    <div class="movie-manager__container">
+        <p-carousel [value]="movieList" [numVisible]="3" [numScroll]="1" [circular]="true" autoplayInterval="3000" class="movie-manager__card-list card-list">
+            <ng-template let-movieItem pTemplate="item">
+                <app-movie-card [dataValue]="movieItem" (addFavoriteItemId)="addItemToFavoriteList($event)" (addWishItemId)="addItemToWishList($event)" class="card-list__items"></app-movie-card>
+            </ng-template>
+        </p-carousel>
+        <div class="movie-manager__content-list items-list">
+            @if(favoriteList?.length){
+            <div class="items-list__list-block">
+                <h3 class="items-list__title">{{favoriteTitle}}</h3>
+                <ul>
+                    @for (item of favoriteList; track item){
+                    <li><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromFavoriteList($event)"></app-movie-list-item></li>
+                    }
+                </ul>
+            </div>
+            }
+            @if(wishList?.length){
+            <div class="items-list__list-block">
+                <ul class="items-list__wish-list">
+                    <h3 class="items-list__title">{{wishListTitle}}</h3>
+                    @for (item of wishList; track item){
+                    <li><app-movie-list-item [dataItem]="item" (itemId)="deleteItemFromWishList($event)"></app-movie-list-item></li>}
+                </ul>
+            </div>
+            }
+        </div>
+    </div>
+</div>
