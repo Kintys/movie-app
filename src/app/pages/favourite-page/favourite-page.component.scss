@@ -1,0 +1,10 @@
+@import "@asset/scss/function.scss";
+.favourite-page {
+    &__title {
+        display: flex;
+        justify-content: center;
+        font-size: toRem(22);
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+}

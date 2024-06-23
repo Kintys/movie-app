@@ -1,0 +1,10 @@
+<div class="favourite-page">
+    <div class="favourite-page__container">
+        <h1 class="favourite-page__title">favourite page</h1>
+        <div class="favourite-page__cards cards">
+            @for (movie of favouriteData; track movie.id) {
+            <app-movie-card [dataValue]="movie"></app-movie-card>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+@import "@asset/scss/function.scss";
+.sidebar {
+    // .sidebar__list
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    // .sidebar__item
+
+    &__item {
+        padding: toRem(10);
+        display: flex;
+        align-items: flex-start;
+    }
+
+    // .sidebar__link
+
+    &__link {
+        text-transform: capitalize;
+        display: flex;
+        column-gap: toRem(10);
+        padding: toRem(2);
+    }
+}

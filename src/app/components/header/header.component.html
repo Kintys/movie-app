@@ -1,11 +1,21 @@
 <header class="header">
+    <app-sidebar-panel [openBar]="openSidebar" (closeBar)="openSidebar = $event"></app-sidebar-panel>
     <div class="header__container">
-        <div class="header__logo">
-            <img src="../../assets/img/logo1.png" alt="Image" class="header__img">
-        </div>
+        <a routerLink="/" class="header__logo logo">
+            <p-avatar image="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLuxi-Fashion-Logo.svg?alt=media&token=3962d9bc-b796-46f6-b443-e7c223b56aad" size="xlarge" />
+            <span class="logo__name">
+                {{logoTitle}}
+            </span>
+        </a>
         <div class="header__action">
-            <!-- <button (click)="selectBgColor='while'" class="button">while</button>
-            <button (click)="selectBgColor='black'" class="button">black</button> -->
+            <p-button (click)="openSidebar = true" icon="pi pi-bars" />
         </div>
+        <nav class="header__menu  menu">
+            <ul class="menu__list">
+                @for (link of links; track link.id) {
+                <li class="menu__item"><a [routerLink]='link.path' class="menu__link hover-link"><i [class]="link.icon"></i> <span>{{link.name}}</span></a></li>
+                }
+            </ul>
+        </nav>
     </div>
 </header>

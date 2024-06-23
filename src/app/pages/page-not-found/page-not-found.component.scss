@@ -1,0 +1,45 @@
+@import "@asset/scss/function.scss";
+.page-not-found {
+    // .page-not-found__container
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    // .page-not-found__image
+    ::ng-deep {
+        .page-not-found__image {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+        position: absolute;
+        align-items: center;
+    }
+    // .page-not-found__title
+
+    &__title {
+        color: #fff;
+        text-align: center;
+        font-size: toRem(72);
+        font-weight: 700;
+    }
+
+    // .page-not-found__subtitle
+
+    &__subtitle {
+    }
+
+    // .page-not-found__link
+
+    &__link {
+    }
+}

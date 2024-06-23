@@ -1,23 +1,7 @@
-<p-card [header]="cardData?.title" class="card">
+<p-card [header]="cardData!.title" class="card">
     <ng-template pTemplate="header">
-        <a [href]="cardData?.link" class="content-card__rating rating">
-            <img [src]="cardData?.imgSrc" class="card__image" alt="Image">
+        <a [routerLink]="['/details' ,cardData?.id]" class="content-card__rating rating">
+            <img [src]="cardData!.poster_path | prefixUrl" class="card__image" alt="Image">
         </a>
-    </ng-template>
-    <p-rating [ngModel]="rating" stars="5" [readonly]="true" [cancel]="false" />
-    <div class="card__content content-card">
-        <div class="content-card__description">
-            <p appHiddenText [maxLengthValue]="100">{{cardData!.description }}</p>
-        </div>
-        <p class="content-card__time"><i class="pi pi-clock"></i>{{ cardData!.time | timeMovieFormat}}</p>
-    </div>
-    <ng-template pTemplate="footer">
-        <div class="content-card__actions actions-card">
-            <p-button icon="fa favoriteIcon" (click)="addToFavoriteList(cardData!.id)" class="actions-card__fauvorite-btn button">
-                <fa-icon [icon]="favoriteIcon"></fa-icon></p-button>
-            <p-button (click)="addToWishList(cardData!.id)" class="actions-card__with-list-btn button">
-                <fa-icon [icon]="wishListIcon"></fa-icon>
-            </p-button>
-        </div>
     </ng-template>
 </p-card>

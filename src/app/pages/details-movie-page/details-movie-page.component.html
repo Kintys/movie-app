@@ -1,0 +1,38 @@
+<div class="description">
+    <div class="description__container">
+        <div class="description__backdrop">
+            <p-image [src]="movieItem!.backdrop_path  | prefixUrl" width="100%" alt="Image"></p-image>
+        </div>
+        <div class="description__headline">
+            <div class="description__image">
+                <div class="description__poster">
+                    <p-image [src]="movieItem!.poster_path  | prefixUrl" width="100%" alt="Image"></p-image>
+                </div>
+            </div>
+            <div class="description__wrapper">
+                <h1 class="description__title">{{movieItem!.title}}</h1>
+                <div class="description__rating">
+                    <p-rating [(ngModel)]="movieItem!.vote_average" stars="10" [readonly]="true" [cancel]="false" /> <span class="description__review">({{movieItem!.vote_count}})</span>
+                </div>
+                <div class="description__release"><i class="pi pi-calendar"></i> <span>{{movieItem!.release_date}}</span></div>
+                <p class="description__text">
+                    {{movieItem!.overview}}
+                </p>
+                <div class="description__action">
+                    <p-button (click)="addItemToFavouriteList(movieItem!.id)" [pTooltip]="tooltipFavouriteList" tooltipPosition="bottom" icon="pi pi-heart-fill" class="hover" />
+                    <ng-template #tooltipFavouriteList>
+                        <div>
+                            <span> <b>Add to Your favourite list</b></span>
+                        </div>
+                    </ng-template>
+                    <p-button (click)="addItemToWatchList(movieItem!.id)" icon="pi pi-eye" [pTooltip]="tooltipWatchList" tooltipPosition="bottom" class="hover" />
+                    <ng-template #tooltipWatchList>
+                        <div>
+                            <span> <b>Add to Your watch list</b></span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@import "@asset/scss/function.scss";
+.header {
+    // .header__container
+
+    &__container {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        align-items: center;
+    }
+
+    // .header__logo
+
+    &__logo {
+        margin-right: toRem(40);
+    }
+
+    // .header__menu
+    &__menu {
+        justify-self: end;
+    }
+}
+
+.menu {
+    // .menu__list
+
+    &__list {
+        display: flex;
+        column-gap: toRem(20);
+        max-width: toRem(400);
+        flex-wrap: wrap;
+    }
+
+    // .menu__item
+
+    &__item {
+        display: flex;
+        text-transform: capitalize;
+    }
+    &__link {
+        display: flex;
+        column-gap: toRem(10);
+    }
+}

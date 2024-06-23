@@ -1,0 +1,10 @@
+<div class="watch-page">
+    <div class="watch-page__container">
+        <h1 class="watch-page__title">watch page</h1>
+        <div class="watch-page__cards cards">
+            @for (movie of watchData; track movie.id) {
+            <app-movie-card [dataValue]="movie"></app-movie-card>
+            }
+        </div>
+    </div>
+</div>

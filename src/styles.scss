@@ -1,8 +1,8 @@
 @use "sass:math";
-@import "./assets/scss/function.scss";
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 // /* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/function.scss";
 @import "../src/assets/style/null.scss";
 @import "primeicons/primeicons.css";
 
@@ -51,4 +51,48 @@ body {
     &:hover {
         text-decoration: underline;
     }
+}
+.logo {
+    display: flex;
+    align-items: center;
+    column-gap: toRem(20);
+    &__name {
+        font-weight: 900;
+    }
+}
+.hover-link {
+    position: relative;
+    &::after,
+    &::before {
+        content: "";
+        width: 0;
+        height: toRem(1);
+        background: #666;
+        position: absolute;
+        bottom: toRem(-4);
+        transition: all 0.3s;
+    }
+    &::after {
+        left: 50%;
+    }
+    &::before {
+        right: 50%;
+    }
+    &:hover::after,
+    &:hover::before {
+        width: 50%;
+    }
+}
+.hover {
+    transition: all 0.4s;
+    &:hover {
+        color: #f79d00;
+    }
+}
+.cards {
+    padding-top: toRem(40);
+    padding-bottom: toRem(40);
+    display: grid;
+    @include gridCards(fit, toRem(220), toRem(250), toRem(30)) // ;
+;
 }

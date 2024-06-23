@@ -1,0 +1,20 @@
+<p-sidebar [(visible)]="openBar" (onHide)="onSidebarHide()" class="sidebar">
+    <ng-template pTemplate="header">
+        <div class="sidebar__header">
+            <a routerLink="/" class="sidebar__logo logo">
+                <p-avatar image="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLuxi-Fashion-Logo.svg?alt=media&token=3962d9bc-b796-46f6-b443-e7c223b56aad" size="xlarge" />
+                <span class="logo__name">
+                    {{logoTitle}}
+                </span>
+            </a>
+        </div>
+
+    </ng-template>
+    <ul class="sidebar__list">
+        @for (link of menuLinkTitle; track link.id) {
+        <li class="sidebar__item">
+            <a class="sidebar__link hover-link" [routerLink]="link.path"> <i [class]="link.icon"></i> <span>{{link.name}}</span></a>
+        </li>
+        }
+    </ul>
+</p-sidebar>
