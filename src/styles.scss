@@ -1,6 +1,10 @@
 @use "sass:math";
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "primeng/resources/primeng.css";
+// /* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/function.scss";
 @import "../src/assets/style/null.scss";
+@import "primeicons/primeicons.css";
 
 $mainColor: #000;
 $secondColor: #db4444;
@@ -16,72 +20,7 @@ $pc: toEm($containerWidth);
 $fontSize: toRem(16);
 $responsiveType: 1;
 
-@function percent($px, $from: 100) {
-    $result: math.div($px, $from) * 100%;
-    @return $result;
-}
-//REM
-@function toRem($px, $current: 16) {
-    $result: math.div($px, $current) + rem;
-    @return $result;
-}
-//EM
-@function toEm($px, $current: 16) {
-    $result: math.div($px, $current) + em;
-    @return $result;
-}
-@mixin adaptiveValue($property, $startSize, $minSize, $keepSize: 0, $widthFrom: $containerWidth, $widthTo: $minWidth) {
-    @if ($startSize==0) {
-        $startSize: 0.000001;
-    }
-    @if ($minSize==0) {
-        $minSize: 0.000001;
-    }
-    $addSize: math.div($startSize - $minSize, 16);
-    @if ($widthFrom == $containerWidth and $maxWidthContainer == 0) {
-        $widthFrom: $maxWidth;
-    }
-    $widthFromMedia: toEm($widthFrom);
-    $widthToMedia: toEm($widthTo);
-    $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
-    $yIntersection: -$widthTo * $slope + $minSize;
-    @if ($yIntersection==0) {
-        $yIntersection: 0.000001;
-    }
-    $flyValue: #{toRem($yIntersection)}" + " #{$slope * 100}vw;
-    $propertyValue: #{"clamp(" toRem($minSize) "," $flyValue "," toRem($startSize) ")"};
-    @if ($minSize > $startSize) {
-        $propertyValue: #{"clamp(" toRem($startSize) "," $flyValue "," toRem($minSize) ")"};
-    }
-    @if $keepSize != 1 and $keepSize != 3 {
-        @media (min-width: $widthFromMedia) {
-            #{$property}: toRem($startSize);
-        }
-    }
-    @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
-        @supports (#{$property}: $propertyValue) {
-            #{$property}: $propertyValue;
-        }
-        @supports not (#{$property}: $propertyValue) {
-            #{$property}: calc(
-                #{toRem($minSize)} + #{$addSize} * (100vw - #{toRem($widthTo)}) / #{math.div($widthFrom, 16) -
-                    math.div($widthTo, 16)}
-            );
-        }
-    }
-    @if $keepSize != 1 and $keepSize != 2 {
-        @media (max-width: $widthToMedia) {
-            #{$property}: toRem($minSize);
-        }
-    }
-}
-@mixin gridCards($type: fit, $min: 280px, $max: 1fr, $gap: 30px) {
-    display: grid;
-    gap: $gap;
-    grid-template-columns: repeat(auto-#{$type}, minmax($min, $max));
-}
-
-[class*="container"] {
+[class*="__container"] {
     @if ($maxWidthContainer>0) {
         max-width: toRem($containerWidth);
         margin: 0 auto;
@@ -95,15 +34,65 @@ $responsiveType: 1;
         }
     }
 }
-
+html {
+    height: 100%;
+}
 body {
     margin: 0;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
 }
 .show-more,
 .show-less {
-    color: yellow;
+    transition: all 0.3s;
+    color: var(--surface-800);
     cursor: pointer;
     &:hover {
         text-decoration: underline;
     }
+}
+.logo {
+    display: flex;
+    align-items: center;
+    column-gap: toRem(20);
+    &__name {
+        font-weight: 900;
+    }
+}
+.hover-link {
+    position: relative;
+    &::after,
+    &::before {
+        content: "";
+        width: 0;
+        height: toRem(1);
+        background: #666;
+        position: absolute;
+        bottom: toRem(-4);
+        transition: all 0.3s;
+    }
+    &::after {
+        left: 50%;
+    }
+    &::before {
+        right: 50%;
+    }
+    &:hover::after,
+    &:hover::before {
+        width: 50%;
+    }
+}
+.hover {
+    transition: all 0.4s;
+    &:hover {
+        color: #f79d00;
+    }
+}
+.cards {
+    padding-top: toRem(40);
+    padding-bottom: toRem(40);
+    display: grid;
+    @include gridCards(fit, toRem(220), toRem(250), toRem(30)) // ;
+;
 }

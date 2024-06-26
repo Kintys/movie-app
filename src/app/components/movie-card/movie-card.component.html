@@ -1,18 +1,7 @@
-<article class="card">
-    <img [src]="cardData?.imgSrc" class="card__image" alt="Image">
-    <div class="card__content content-card">
-        <h3 class="content-card__title">{{cardData?.title }}</h3>
-        <a class="content-card__description">
-            <p appHiddenText [maxLengthValue]="100">{{cardData!.description }}</p>
+<p-card [header]="cardData!.title" class="card">
+    <ng-template pTemplate="header">
+        <a [routerLink]="['/details' ,cardData?.id]" class="content-card__rating rating">
+            <img [src]="cardData!.poster_path | prefixUrl" class="card__image" alt="Image">
         </a>
-        <p class="content-card__time">{{ cardData!.time | timeMovieFormat}}</p>
-        <a [href]="cardData?.link" class="content-card__rating rating"><span class="rating__text">{{ratingTitle}}</span>:<span class="rating__number">{{cardData!.rating | ratingSeparation}}</span></a>
-        <div class="content-card__actions actions-card">
-            <button (click)="addToFavoriteList(cardData!.id)" class="actions-card__fauvorite-btn button">
-                <fa-icon [icon]="favoriteIcon"></fa-icon></button>
-            <button (click)="addToWishList(cardData!.id)" class="actions-card__with-list-btn button">
-                <fa-icon [icon]="wishListIcon"></fa-icon>
-            </button>
-        </div>
-    </div>
-</article>
+    </ng-template>
+</p-card>

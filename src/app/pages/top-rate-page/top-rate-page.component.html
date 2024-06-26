@@ -1,0 +1,7 @@
+<div class="top-rate-page">
+    <div class="top-rate-page__container cards">
+        @for (movie of movieData; track movie.id) {
+        <app-movie-card [dataValue]="movie"></app-movie-card>
+        }
+    </div>
+</div>
