@@ -4,7 +4,7 @@ import { SidebarPanelComponent } from '../sidebar-panel/sidebar-panel.component'
 import { ImageModule } from 'primeng/image'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
-import { menuList } from '@/app/movie-data/type-declorate'
+import { MenuList } from '@/app/movie-data/type-declorate'
 import { v4 as uuidv4 } from 'uuid'
 @Component({
     selector: 'app-header',
@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid'
     styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
-    links?: menuList[]
+    links?: MenuList[]
     logoTitle: string = 'FilmFrenzy'
     openSidebar: boolean = false
     ngOnInit(): void {

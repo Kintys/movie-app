@@ -1,4 +1,4 @@
-export interface menuList {
+export interface MenuList {
     id: string | number
     path?: string
     name?: string
