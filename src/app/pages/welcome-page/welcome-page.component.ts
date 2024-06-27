@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
-import { movieDataBase } from '@/app/movie-data/mock-data'
+import { Component, OnInit } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
+import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
+
 @Component({
     selector: 'app-welcome-page',
     standalone: true,
@@ -9,6 +10,10 @@ import { MovieCardComponent } from '@/app/components/movie-card/movie-card.compo
     templateUrl: './welcome-page.component.html',
     styleUrl: './welcome-page.component.scss'
 })
-export class WelcomePageComponent {
-    movieData: Movie[] = movieDataBase.getAllMovies()
+export class WelcomePageComponent implements OnInit {
+    movieData!: Movie[]
+    constructor(private welcomeData: MovieDataBaseService) {}
+    ngOnInit(): void {
+        this.movieData = this.welcomeData.getAllMovies()
+    }
 }

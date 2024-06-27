@@ -3,7 +3,7 @@ import { SidebarModule } from 'primeng/sidebar'
 import { AvatarModule } from 'primeng/avatar'
 import { RouterLink } from '@angular/router'
 import { v4 as uuidv4 } from 'uuid'
-import { menuList } from '../../movie-data/type-declorate'
+import { MenuItemModule } from '../../movie-data/type-declorate'
 @Component({
     selector: 'app-sidebar-panel',
     standalone: true,
@@ -14,7 +14,7 @@ import { menuList } from '../../movie-data/type-declorate'
 export class SidebarPanelComponent implements OnInit {
     @Input() openBar: boolean = false
     @Output() closeBar = new EventEmitter<boolean>()
-    menuLinkTitle?: menuList[]
+    menuLinkTitle?: MenuItemModule[]
     logoTitle: string = 'FilmFrenzy'
     ngOnInit(): void {
         this.menuLinkTitle = [

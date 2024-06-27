@@ -1,7 +1,6 @@
-import { MovieData, FavouriteAndWatchData } from './testStore'
 import { Movie } from './type-declorate'
 
-const nowPlayingMovies: Movie[] = [
+export const nowPlayingMovies: Movie[] = [
     {
         adult: false,
         backdrop_path: '/coATv42PoiLqAFKStJiMZs2r6Zb.jpg',
@@ -123,7 +122,7 @@ const nowPlayingMovies: Movie[] = [
     }
 ]
 
-const popularMovies: Movie[] = [
+export const popularMovies: Movie[] = [
     {
         adult: false,
         backdrop_path: '/coATv42PoiLqAFKStJiMZs2r6Zb.jpg',
@@ -211,7 +210,7 @@ const popularMovies: Movie[] = [
     }
 ]
 
-const topRatedMovies: Movie[] = [
+export const topRatedMovies: Movie[] = [
     {
         adult: false,
         backdrop_path: '/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg',
@@ -590,6 +589,3 @@ export const upcomingMovies: Movie[] = [
         vote_count: 287
     }
 ]
-// Даний підхід є не найкращим виходом з положення, але так як ми ще не проходили Store і Services. Був створений клас для взаемодії між собою компонентів.
-export const movieDataBase = new MovieData(nowPlayingMovies, popularMovies, topRatedMovies, upcomingMovies)
-export const favouriteAndWatchDataBase = new FavouriteAndWatchData(movieDataBase.getAllMovies())
