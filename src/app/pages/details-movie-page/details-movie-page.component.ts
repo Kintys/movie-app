@@ -7,9 +7,9 @@ import { PrefixUrlPipe } from '@/app/pipes/prefix-url/prefix-url.pipe'
 import { PanelModule } from 'primeng/panel'
 import { FormsModule } from '@angular/forms'
 import { Movie } from '@/app/movie-data/type-declorate'
-import { movieDataBase } from '@/app/movie-data/mock-data'
-import { ActivatedRoute, Router } from '@angular/router'
-import { favouriteAndWatchDataBase } from '@/app/movie-data/mock-data'
+import { ActivatedRoute } from '@angular/router'
+import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
+import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
 
 @Component({
     selector: 'app-details-movie-page',
@@ -21,18 +21,22 @@ import { favouriteAndWatchDataBase } from '@/app/movie-data/mock-data'
 export class DetailsMoviePageComponent {
     movieItem?: Movie
     id!: number
-    constructor(private route: ActivatedRoute) {}
+    constructor(
+        private route: ActivatedRoute,
+        private fovouriteAndWatchListData: FavouriteAndWatchDataService,
+        private movieDataBase: MovieDataBaseService
+    ) {}
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             if (params.has('id')) this.id = +params.get('id')!
-            this.movieItem = movieDataBase.getItemById(this.id)
+            this.movieItem = this.movieDataBase.getItemById(this.id)
         })
     }
-    // кастомний стор подробніше в файлі movie-data/testStore
+
     addItemToFavouriteList(id: number) {
-        favouriteAndWatchDataBase.setItemToFavouriteList(id)
+        this.fovouriteAndWatchListData.setItemToFavouriteList(id)
     }
     addItemToWatchList(id: number) {
-        favouriteAndWatchDataBase.setItemToWatchList(id)
+        this.fovouriteAndWatchListData.setItemToWatchList(id)
     }
 }
