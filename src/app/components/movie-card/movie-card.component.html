@@ -4,4 +4,7 @@
             <img [src]="cardData!.poster_path | prefixUrl" class="card__image" alt="Image">
         </a>
     </ng-template>
+    @if (deleteCard) {
+    <p-button icon="pi pi-trash" (click)="deleteItemById(cardData!.id)" />
+    }
 </p-card>

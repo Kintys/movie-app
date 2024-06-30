@@ -1,7 +1,9 @@
 <div class="description">
     <div class="description__container">
         <div class="description__backdrop">
-            <p-image [src]="movieItem!.backdrop_path  | prefixUrl" width="100%" alt="Image"></p-image>
+            @if(movieItem!.backdrop_path){
+            <p-image [src]="movieItem!.backdrop_path  | prefixUrl " width="100%" alt="Image"></p-image>
+            }
         </div>
         <div class="description__headline">
             <div class="description__image">
