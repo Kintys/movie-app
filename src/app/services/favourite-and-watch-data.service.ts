@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core'
 import { Movie } from '../movie-data/type-declorate'
-import { MovieDataBaseService } from './movie-data-base.service'
+import { HttpClient } from '@angular/common/http'
+import { switchMap, throwError } from 'rxjs'
 
-// Змінив testStore клас на сервіс
 @Injectable({
     providedIn: 'root'
 })
+// В даному підході використовуються локальний Json-server
+// --------------- Коротка інструкція використання -------------------
+// 1) Всі мокові данні знаходиться в файлі db.json (movie-app/db.json)
+// 2) Встанолення -  npm install json-server (https://www.npmjs.com/package/json-server)
+// 3) Запуск сервера - окремий термінал -> npm run backend
 export class FavouriteAndWatchDataService {
-    favouriteList: Movie[] = []
-    watchList: Movie[] = []
-    constructor(private movieData: MovieDataBaseService) {}
+    favouriteList = this.http.get<Movie[]>('http://localhost:3000/favouriteList')
+    watchList = this.http.get<Movie[]>('http://localhost:3000/watchList')
+    constructor(private http: HttpClient) {}
 
     public getFavouriteList() {
         return this.favouriteList
@@ -17,29 +22,52 @@ export class FavouriteAndWatchDataService {
     public getWatchList() {
         return this.watchList
     }
-    private getAllMovies() {
-        return this.movieData.getAllMovies()
+    setItemToFavouriteList(movieVal: Movie) {
+        this.getFavouriteList()
+            .pipe(
+                switchMap((movies) => {
+                    const movieExists = movies.some((item) => item.id == movieVal.id)
+                    if (movieExists) {
+                        return throwError(() => new Error('Movie already in favourite list'))
+                    } else {
+                        return this.http.post<Movie>('http://localhost:3000/favouriteList', movieVal)
+                    }
+                })
+            )
+            .subscribe({
+                next: (response) => {
+                    console.log('Movie added to favourite list:', response)
+                },
+                error: (err) => {
+                    console.error('Error:', err)
+                }
+            })
     }
-    setItemToFavouriteList(id: string | number) {
-        const foundItem = this.getAllMovies().find((movie) => movie.id == id)
-        if (!foundItem || this.checkItemInList(foundItem, this.favouriteList)) return
-        else this.favouriteList.push(this.getCopyItem(foundItem))
+    setItemToWatchList(movieVal: Movie) {
+        this.getWatchList()
+            .pipe(
+                switchMap((movies) => {
+                    const movieExists = movies.some((item) => item.id == movieVal.id)
+                    if (movieExists) {
+                        return throwError(() => new Error('Movie already in watch list'))
+                    } else {
+                        return this.http.post<Movie>('http://localhost:3000/watchList', movieVal)
+                    }
+                })
+            )
+            .subscribe({
+                next: (response) => {
+                    console.log('Movie added to watch list:', response)
+                },
+                error: (err) => {
+                    console.error('Error:', err)
+                }
+            })
     }
-    setItemToWatchList(id: string | number) {
-        const foundItem = this.getAllMovies().find((movie) => movie.id == id)
-        if (!foundItem || this.checkItemInList(foundItem, this.watchList)) return
-        else this.watchList.push(this.getCopyItem(foundItem))
-    }
-    deleteItemFromFavouriteList(id: string | number) {
-        this.favouriteList = this.favouriteList.filter((movie) => movie.id != id)
+    deleteItemFromFavouriteList(id: number | string) {
+        return this.http.delete<Movie>('http://localhost:3000/favouriteList/' + id)
     }
     deleteItemFromWatchList(id: string | number) {
-        this.watchList = this.watchList.filter((movie) => movie.id != id)
-    }
-    private getCopyItem(val: Movie) {
-        return JSON.parse(JSON.stringify(val))
-    }
-    private checkItemInList(item: Movie, listArr: Movie[]) {
-        return listArr.some((movie) => movie.id == item.id)
+        return this.http.delete<Movie>('http://localhost:3000/watchList/' + id)
     }
 }

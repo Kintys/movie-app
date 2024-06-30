@@ -11,9 +11,14 @@ import { Component, OnInit } from '@angular/core'
     styleUrl: './now-playing-page.component.scss'
 })
 export class NowPlayingPageComponent implements OnInit {
+    sub: any
     movieData!: Movie[]
     constructor(private nowPlayingDataBase: MovieDataBaseService) {}
+
     ngOnInit(): void {
-        this.movieData = this.nowPlayingDataBase.getPlayingList()
+        this.sub = this.nowPlayingDataBase.getPlayingList().subscribe({
+            next: (movie) => (this.movieData = movie)
+        })
+        console.log(this.sub)
     }
 }

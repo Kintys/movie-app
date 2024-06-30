@@ -10,6 +10,7 @@ import { Movie } from '@/app/movie-data/type-declorate'
 import { ActivatedRoute } from '@angular/router'
 import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
 import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
+import { map } from 'rxjs'
 
 @Component({
     selector: 'app-details-movie-page',
@@ -29,14 +30,33 @@ export class DetailsMoviePageComponent {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             if (params.has('id')) this.id = +params.get('id')!
-            this.movieItem = this.movieDataBase.getItemById(this.id)
+            this.movieDataBase
+                .getAllMovies()
+                .pipe(map((movie) => movie.find((item) => item.id == this.id)))
+                .subscribe({
+                    next: (movie) => (this.movieItem = movie)
+                })
         })
     }
 
     addItemToFavouriteList(id: number) {
-        this.fovouriteAndWatchListData.setItemToFavouriteList(id)
+        this.movieDataBase
+            .getAllMovies()
+            .pipe(map((movie) => movie.find((item) => item.id == id)))
+            .subscribe({
+                next: (movie) => {
+                    if (movie) this.fovouriteAndWatchListData.setItemToFavouriteList(movie)
+                }
+            })
     }
     addItemToWatchList(id: number) {
-        this.fovouriteAndWatchListData.setItemToWatchList(id)
+        this.movieDataBase
+            .getAllMovies()
+            .pipe(map((movie) => movie.find((item) => item.id == id)))
+            .subscribe({
+                next: (movie) => {
+                    if (movie) this.fovouriteAndWatchListData.setItemToWatchList(movie)
+                }
+            })
     }
 }

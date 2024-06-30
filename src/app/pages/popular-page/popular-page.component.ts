@@ -1,6 +1,7 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
+
 import { Component, OnInit } from '@angular/core'
 
 @Component({
@@ -16,6 +17,8 @@ export class PopularPageComponent implements OnInit {
     constructor(private popularData: MovieDataBaseService) {}
 
     ngOnInit(): void {
-        this.movieData = this.popularData.getPopularList().reverse()
+        this.popularData.getPopularList().subscribe({
+            next: (movieList) => (this.movieData = movieList)
+        })
     }
 }

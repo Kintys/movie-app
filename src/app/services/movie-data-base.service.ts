@@ -1,69 +1,48 @@
 import { Injectable } from '@angular/core'
-import { nowPlayingMovies, topRatedMovies, popularMovies, upcomingMovies } from '@/app/movie-data/mock-data'
 import { Movie } from '../movie-data/type-declorate'
+import { HttpClient } from '@angular/common/http'
+import { Observable, combineLatest, map } from 'rxjs'
 @Injectable({
     providedIn: 'root'
 })
 
-// Змінив testStore клас на сервіс
+// В даному підході використовуються локальний Json-server
+// --------------- Коротка інструкція використання -------------------
+// 1) Всі мокові данні знаходиться в файлі db.json (movie-app/db.json)
+// 2) Встанолення -  npm install json-server (https://www.npmjs.com/package/json-server)
+// 3) Запуск сервера - окремий термінал -> npm run backend
 export class MovieDataBaseService {
-    nowPlayData: Movie[] = nowPlayingMovies
-    topRateData: Movie[] = topRatedMovies
-    popularData: Movie[] = popularMovies
-    upcomingData: Movie[] = upcomingMovies
-    constructor() {}
+    nowPlayData = this.http.get<Movie[]>('http://localhost:3000/nowPlayingMovies')
+    topRateData = this.http.get<Movie[]>('http://localhost:3000/popularMovies')
+    popularData = this.http.get<Movie[]>('http://localhost:3000/topRatedMovies')
+    upcomingData = this.http.get<Movie[]>('http://localhost:3000/upcomingMovies')
+    allMovies = this.http.get<Movie[]>('http://localhost:3000')
 
-    public getPlayingList() {
+    constructor(private http: HttpClient) {}
+
+    public getPlayingList(): Observable<Movie[]> {
         return this.nowPlayData
     }
-    public getPopularList() {
+    public getPopularList(): Observable<Movie[]> {
         return this.popularData
     }
-    public getTopList() {
+    public getTopList(): Observable<Movie[]> {
         return this.topRateData
     }
-    public getUpcomingList() {
+    public getUpcomingList(): Observable<Movie[]> {
         return this.upcomingData
     }
-    public getAllMovies(): Movie[] {
-        return Array.from(
-            new Set<Movie>([
-                ...this.getPlayingList(),
-                ...this.getPopularList(),
-                ...this.getTopList(),
-                ...this.getUpcomingList()
-            ])
+    // Є сумніви що до даного рішення і повторного запиту на сервер
+    public getAllMovies(): Observable<Movie[]> {
+        return combineLatest([
+            this.getPlayingList(),
+            this.getPopularList(),
+            this.getTopList(),
+            this.getUpcomingList()
+        ]).pipe(
+            map(([playing, popular, top, upcoming]) =>
+                Array.from(new Set([...playing, ...popular, ...top, ...upcoming]))
+            )
         )
-    }
-    public getItemById(id: number | string) {
-        const movieArr = this.getAllMovies()
-        return movieArr.find((item) => item.id == id)
-    }
-
-    public setItemToPlayingList(value: Movie) {
-        if (!value || this.checkDoubleItemInList(value.id)) return
-        const copyVal = this.getCopyItem(value)
-        this.nowPlayData.push(copyVal)
-    }
-    public setItemToTopList(value: Movie) {
-        if (!value || this.checkDoubleItemInList(value.id)) return
-        const copyVal = this.getCopyItem(value)
-        this.topRateData.push(copyVal)
-    }
-    public setItemToUpcomingList(value: Movie) {
-        if (!value || this.checkDoubleItemInList(value.id)) return
-        const copyVal = this.getCopyItem(value)
-        this.popularData.push(copyVal)
-    }
-    public setItemToPopularList(value: Movie) {
-        if (!value || this.checkDoubleItemInList(value.id)) return
-        const copyVal = this.getCopyItem(value)
-        this.upcomingData.push(copyVal)
-    }
-    private getCopyItem(val: Movie) {
-        return JSON.parse(JSON.stringify(val))
-    }
-    private checkDoubleItemInList(idItem: number | string) {
-        return this.getAllMovies().some((movie) => movie.id == idItem)
     }
 }

@@ -14,6 +14,20 @@ export class WatchPageComponent implements OnInit {
     watchList!: Movie[]
     constructor(private watchData: FavouriteAndWatchDataService) {}
     ngOnInit(): void {
-        this.watchList = this.watchData.getWatchList()
+        this.loadWatchList()
+    }
+    loadWatchList() {
+        this.watchData.getWatchList().subscribe({
+            next: (watchMoviesList) => (this.watchList = watchMoviesList)
+        })
+    }
+    deleteItemById(id: string | number) {
+        this.watchData.deleteItemFromWatchList(id).subscribe({
+            // Маю деякі сумніви що до цього рішення, якщо буде можливість і час, підскажить як оптимізувати цей код
+            next: () => this.loadWatchList(), // (повторний запит на сервер)
+            error(err) {
+                console.log(err)
+            }
+        })
     }
 }
