@@ -1,7 +1,8 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { movieDataBase } from '@/app/movie-data/mock-data'
 import { Movie } from '@/app/movie-data/type-declorate'
-import { Component } from '@angular/core'
+import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
+
+import { Component, OnInit } from '@angular/core'
 
 @Component({
     selector: 'app-popular-page',
@@ -10,6 +11,14 @@ import { Component } from '@angular/core'
     templateUrl: './popular-page.component.html',
     styleUrl: './popular-page.component.scss'
 })
-export class PopularPageComponent {
-    movieData: Movie[] = movieDataBase.getPopularList().reverse()
+export class PopularPageComponent implements OnInit {
+    movieData!: Movie[]
+
+    constructor(private popularData: MovieDataBaseService) {}
+
+    ngOnInit(): void {
+        this.popularData.getPopularList().subscribe({
+            next: (movieList) => (this.movieData = movieList)
+        })
+    }
 }
