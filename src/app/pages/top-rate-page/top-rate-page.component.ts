@@ -18,7 +18,7 @@ export class TopRatePageComponent implements OnInit {
 
     ngOnInit(): void {
         this.topRateData.getTopList().subscribe({
-            next: (movieList) => (this.movieData = movieList)
+            next: (movieList) => (this.movieData = movieList.results)
         })
     }
 }

@@ -20,3 +20,20 @@ export interface Movie {
     vote_average: number
     vote_count: number
 }
+export interface MoviePage {
+    dates?: {
+        maximum: string
+        minimum: string
+    }
+    page: number
+    results: Movie[]
+}
+export interface TokenModule {
+    success: boolean
+    expires_at: string
+    request_token: string
+}
+export interface SessionModule {
+    session_id: string
+    success: boolean
+}

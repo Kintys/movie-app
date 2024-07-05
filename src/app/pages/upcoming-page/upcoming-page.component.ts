@@ -16,7 +16,7 @@ export class UpcomingPageComponent implements OnInit {
     constructor(private upcomingData: MovieDataBaseService) {}
     ngOnInit(): void {
         this.upcomingData.getUpcomingList().subscribe({
-            next: (movieList) => (this.movieData = movieList)
+            next: (movieList) => (this.movieData = movieList.results)
         })
     }
 }

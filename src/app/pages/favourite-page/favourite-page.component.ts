@@ -11,22 +11,23 @@ import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch
 })
 export class FavouritePageComponent implements OnInit {
     favouriteList!: Movie[]
+    token?: string
+    sessionId?: string
+    accId?: string
     constructor(private favouriteData: FavouriteAndWatchDataService) {}
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
+        this.sessionId = localStorage.getItem('sessionId')!
+        this.accId = localStorage.getItem('accId')!
         this.loadFavouriteList()
     }
     loadFavouriteList() {
-        this.favouriteData.getFavouriteList().subscribe({
-            next: (favouriteMovieList) => (this.favouriteList = favouriteMovieList)
+        this.favouriteData.getFavouriteList(this.accId!, this.sessionId!).subscribe((val) => {
+            this.favouriteList = val.results
         })
     }
     deleteItemById(id: string | number) {
-        this.favouriteData.deleteItemFromFavouriteList(id).subscribe({
-            // Маю деякі сумніви що до цього рішення, якщо буде можливість і час, підскажить як оптимізувати цей код
-            next: () => this.loadFavouriteList(), // (повторний запит )
-            error(err) {
-                console.log(err)
-            }
+        this.favouriteData.deleteItemFromFavouriteList(id, this.accId!).subscribe({
+            next: () => this.loadFavouriteList()
         })
     }
 }

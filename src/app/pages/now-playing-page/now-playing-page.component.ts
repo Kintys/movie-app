@@ -17,8 +17,7 @@ export class NowPlayingPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.sub = this.nowPlayingDataBase.getPlayingList().subscribe({
-            next: (movie) => (this.movieData = movie)
+            next: (movie) => (this.movieData = movie.results)
         })
-        console.log(this.sub)
     }
 }

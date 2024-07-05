@@ -8,8 +8,10 @@
             </span>
         </a>
         <div class="header__action">
-            <p-button (click)="openSidebar = true" icon="pi pi-bars" />
+            <p-button (click)="openSidebar = true" icon="pi pi-bars" class="header__button" />
+            <p-button (click)="onSignOut()" class="header__button"><i class="pi pi-sign-out"></i></p-button>
         </div>
+
         <nav class="header__menu  menu">
             <ul class="menu__list">
                 @for (link of links; track link.id) {

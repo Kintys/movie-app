@@ -39,24 +39,10 @@ export class DetailsMoviePageComponent {
         })
     }
 
-    addItemToFavouriteList(id: number) {
-        this.movieDataBase
-            .getAllMovies()
-            .pipe(map((movie) => movie.find((item) => item.id == id)))
-            .subscribe({
-                next: (movie) => {
-                    if (movie) this.fovouriteAndWatchListData.setItemToFavouriteList(movie)
-                }
-            })
+    addItemToFavouriteList(id: number | string) {
+        this.fovouriteAndWatchListData.setItemToFavouriteList(id, localStorage.getItem('accId')!)
     }
-    addItemToWatchList(id: number) {
-        this.movieDataBase
-            .getAllMovies()
-            .pipe(map((movie) => movie.find((item) => item.id == id)))
-            .subscribe({
-                next: (movie) => {
-                    if (movie) this.fovouriteAndWatchListData.setItemToWatchList(movie)
-                }
-            })
+    addItemToWatchList(id: number | string) {
+        this.fovouriteAndWatchListData.setItemToWatchList(id, localStorage.getItem('accId')!)
     }
 }

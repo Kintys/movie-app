@@ -1,73 +1,95 @@
 import { Injectable } from '@angular/core'
-import { Movie } from '../movie-data/type-declorate'
+import { Movie, MoviePage, TokenModule } from '../movie-data/type-declorate'
 import { HttpClient } from '@angular/common/http'
-import { switchMap, throwError } from 'rxjs'
+import { Observable, switchMap, throwError } from 'rxjs'
+import { environment } from '@/environments/environment.development'
 
 @Injectable({
     providedIn: 'root'
 })
-// В даному підході використовуються локальний Json-server
-// --------------- Коротка інструкція використання -------------------
-// 1) Всі мокові данні знаходиться в файлі db.json (movie-app/db.json)
-// 2) Встанолення -  npm install json-server (https://www.npmjs.com/package/json-server)
-// 3) Запуск сервера - окремий термінал -> npm run backend
 export class FavouriteAndWatchDataService {
-    favouriteList = this.http.get<Movie[]>('http://localhost:3000/favouriteList')
-    watchList = this.http.get<Movie[]>('http://localhost:3000/watchList')
+    apiUrl = environment.apiUrl
+    apiKey = environment.apiKey
+    apiToken = environment.apiToken
     constructor(private http: HttpClient) {}
-
-    public getFavouriteList() {
-        return this.favouriteList
-    }
-    public getWatchList() {
-        return this.watchList
-    }
-    setItemToFavouriteList(movieVal: Movie) {
-        this.getFavouriteList()
-            .pipe(
-                switchMap((movies) => {
-                    const movieExists = movies.some((item) => item.id == movieVal.id)
-                    if (movieExists) {
-                        return throwError(() => new Error('Movie already in favourite list'))
-                    } else {
-                        return this.http.post<Movie>('http://localhost:3000/favouriteList', movieVal)
-                    }
-                })
-            )
-            .subscribe({
-                next: (response) => {
-                    console.log('Movie added to favourite list:', response)
-                },
-                error: (err) => {
-                    console.error('Error:', err)
+    public getFavouriteList(accountId: string, sessionId: string): Observable<MoviePage> {
+        return this.http.get<MoviePage>(
+            `${this.apiUrl}account/${accountId}/favorite/movies?language=en-US&page=1&session_id=${sessionId}&sort_by=created_at.asc`,
+            {
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: this.apiToken
                 }
-            })
+            }
+        )
     }
-    setItemToWatchList(movieVal: Movie) {
-        this.getWatchList()
-            .pipe(
-                switchMap((movies) => {
-                    const movieExists = movies.some((item) => item.id == movieVal.id)
-                    if (movieExists) {
-                        return throwError(() => new Error('Movie already in watch list'))
-                    } else {
-                        return this.http.post<Movie>('http://localhost:3000/watchList', movieVal)
-                    }
-                })
-            )
-            .subscribe({
-                next: (response) => {
-                    console.log('Movie added to watch list:', response)
-                },
-                error: (err) => {
-                    console.error('Error:', err)
+    public getWatchList(accountId: string, sessionId: string): Observable<MoviePage> {
+        return this.http.get<MoviePage>(
+            `${this.apiUrl}account/${accountId}/watchlist/movies?language=en-US&page=1&session_id=${sessionId}&sort_by=created_at.asc`,
+            {
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: this.apiToken
                 }
-            })
+            }
+        )
     }
-    deleteItemFromFavouriteList(id: number | string) {
-        return this.http.delete<Movie>('http://localhost:3000/favouriteList/' + id)
+    public setItemToFavouriteList(id: number | string, accountId: string) {
+        this.http
+            .post<Movie>(
+                `${this.apiUrl}account/${accountId}/favorite`,
+                { media_type: 'movie', media_id: id, favorite: true },
+                {
+                    headers: {
+                        accept: 'application/json',
+                        'content-type': 'application/json',
+                        Authorization: this.apiToken
+                    }
+                }
+            )
+            .subscribe((val) => console.log(val))
     }
-    deleteItemFromWatchList(id: string | number) {
-        return this.http.delete<Movie>('http://localhost:3000/watchList/' + id)
+    setItemToWatchList(id: number | string, accountId: string) {
+        this.http
+            .post<Movie>(
+                `${this.apiUrl}account/${accountId}/watchlist`,
+                { media_type: 'movie', media_id: id, watchlist: true },
+                {
+                    headers: {
+                        accept: 'application/json',
+                        'content-type': 'application/json',
+                        Authorization: this.apiToken
+                    }
+                }
+            )
+            .subscribe((val) => console.log(val))
+    }
+    deleteItemFromFavouriteList(id: number | string, accountId: string) {
+        return this.http.post<Movie>(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            { media_type: 'movie', media_id: id, favorite: false },
+            {
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: this.apiToken
+                }
+            }
+        )
+    }
+    deleteItemFromWatchList(id: number | string, accountId: string) {
+        return this.http.post<Movie>(
+            `${this.apiUrl}account/${accountId}/watchlist`,
+            { media_type: 'movie', media_id: id, watchlist: false },
+            {
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: this.apiToken
+                }
+            }
+        )
     }
 }

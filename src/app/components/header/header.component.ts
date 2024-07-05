@@ -33,4 +33,7 @@ export class HeaderComponent implements OnInit {
             }
         ]
     }
+    onSignOut() {
+        localStorage.clear()
+    }
 }

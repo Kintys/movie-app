@@ -12,22 +12,23 @@ import { Component, OnInit } from '@angular/core'
 })
 export class WatchPageComponent implements OnInit {
     watchList!: Movie[]
+    token?: string
+    sessionId?: string
+    accId?: string
     constructor(private watchData: FavouriteAndWatchDataService) {}
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
+        this.sessionId = localStorage.getItem('sessionId')!
+        this.accId = localStorage.getItem('accId')!
         this.loadWatchList()
     }
     loadWatchList() {
-        this.watchData.getWatchList().subscribe({
-            next: (watchMoviesList) => (this.watchList = watchMoviesList)
+        this.watchData.getWatchList(this.accId!, this.sessionId!).subscribe((val) => {
+            this.watchList = val.results
         })
     }
     deleteItemById(id: string | number) {
-        this.watchData.deleteItemFromWatchList(id).subscribe({
-            // Маю деякі сумніви що до цього рішення, якщо буде можливість і час, підскажить як оптимізувати цей код
-            next: () => this.loadWatchList(), // (повторний запит на сервер)
-            error(err) {
-                console.log(err)
-            }
+        this.watchData.deleteItemFromWatchList(id, this.accId!).subscribe({
+            next: () => this.loadWatchList()
         })
     }
 }

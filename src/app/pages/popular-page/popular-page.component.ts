@@ -18,7 +18,7 @@ export class PopularPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.popularData.getPopularList().subscribe({
-            next: (movieList) => (this.movieData = movieList)
+            next: (movieList) => (this.movieData = movieList.results)
         })
     }
 }
