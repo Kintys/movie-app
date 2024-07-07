@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { ImageModule } from 'primeng/image'
 import { RatingModule } from 'primeng/rating'
@@ -8,7 +8,7 @@ import { PanelModule } from 'primeng/panel'
 import { FormsModule } from '@angular/forms'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { ActivatedRoute } from '@angular/router'
-import { map } from 'rxjs'
+import { Subscription, map } from 'rxjs'
 import { MovieAPIService } from '@/app/services/movie-api.service'
 
 @Component({
@@ -18,12 +18,13 @@ import { MovieAPIService } from '@/app/services/movie-api.service'
     templateUrl: './details-movie-page.component.html',
     styleUrl: './details-movie-page.component.scss'
 })
-export class DetailsMoviePageComponent {
+export class DetailsMoviePageComponent implements OnInit, OnDestroy {
+    sub?: Subscription
     movieItem?: Movie
     id!: number
     constructor(private route: ActivatedRoute, private movieDataBase: MovieAPIService) {}
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params) => {
+        this.sub = this.route.paramMap.subscribe((params) => {
             if (params.has('id')) this.id = +params.get('id')!
             this.movieDataBase
                 .getAllMovies()
@@ -39,5 +40,8 @@ export class DetailsMoviePageComponent {
     }
     addItemToWatchList(id: number | string) {
         this.movieDataBase.setItemToWatchList(id)
+    }
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe()
     }
 }

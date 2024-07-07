@@ -1,7 +1,8 @@
 import { AuthenticationService } from '@/app/services/authentication.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 import { ButtonModule } from 'primeng/button'
+import { Subscription } from 'rxjs'
 
 @Component({
     selector: 'app-authentication',
@@ -10,28 +11,35 @@ import { ButtonModule } from 'primeng/button'
     templateUrl: './authentication.component.html',
     styleUrl: './authentication.component.scss'
 })
-export class AuthenticationComponent implements OnInit {
+export class AuthenticationComponent implements OnInit, OnDestroy {
     title: string = 'Please log in.'
     token?: string
     sessionId?: string
     id?: string
     showBtn: boolean = false
+    private subscriptions: Subscription = new Subscription()
+    authServicesSub_1?: Subscription
+    authServicesSub_2?: Subscription
+    authServicesSub_3?: Subscription
     constructor(private authServices: AuthenticationService, private router: ActivatedRoute) {}
     ngOnInit(): void {
         if (this.router.snapshot.queryParams['approved']) {
             this.title = 'Thank you!'
             this.showBtn = true
             this.token = localStorage.getItem('token')!
-            this.authServices.createNewSession(this.token).subscribe((newSession) => {
+            this.authServicesSub_1 = this.authServices.createNewSession(this.token).subscribe((newSession) => {
                 localStorage.setItem('sessionId', newSession.session_id)
-                this.authServices.getAccountDetails(newSession.session_id).subscribe((val) => {
+                this.authServicesSub_2 = this.authServices.getAccountDetails(newSession.session_id).subscribe((val) => {
                     localStorage.setItem('accId', val.id)
                 })
             })
         }
+        this.subscriptions.add(this.authServicesSub_1)
+        this.subscriptions.add(this.authServicesSub_2)
+        this.subscriptions.add(this.authServicesSub_3)
     }
     onAuth() {
-        this.authServices.getAuthenticationToken().subscribe(async (val) => {
+        this.authServicesSub_3 = this.authServices.getAuthenticationToken().subscribe(async (val) => {
             await this.openWindow(val.request_token)
             localStorage.setItem('token', val.request_token)
         })
@@ -45,5 +53,8 @@ export class AuthenticationComponent implements OnInit {
         if (newWindow) {
             window.close()
         }
+    }
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe()
     }
 }

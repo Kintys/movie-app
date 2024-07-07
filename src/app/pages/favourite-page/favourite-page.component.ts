@@ -1,8 +1,9 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
 import { MovieAPIService } from '@/app/services/movie-api.service'
+import { Subscription } from 'rxjs'
 @Component({
     selector: 'app-favourite-page',
     standalone: true,
@@ -10,7 +11,8 @@ import { MovieAPIService } from '@/app/services/movie-api.service'
     templateUrl: './favourite-page.component.html',
     styleUrl: './favourite-page.component.scss'
 })
-export class FavouritePageComponent implements OnInit {
+export class FavouritePageComponent implements OnInit, OnDestroy {
+    sub?: Subscription
     favouriteList!: Movie[]
     constructor(private favouriteData: FavouriteAndWatchDataService, private favouriteApi: MovieAPIService) {}
     ngOnInit() {
@@ -21,5 +23,8 @@ export class FavouritePageComponent implements OnInit {
     }
     deleteItemById(id: string | number) {
         this.favouriteApi.deleteItemFromFavouriteList(id)
+    }
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe()
     }
 }
