@@ -8,9 +8,8 @@ import { PanelModule } from 'primeng/panel'
 import { FormsModule } from '@angular/forms'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { ActivatedRoute } from '@angular/router'
-import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
-import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
 import { map } from 'rxjs'
+import { MovieAPIService } from '@/app/services/movie-api.service'
 
 @Component({
     selector: 'app-details-movie-page',
@@ -22,11 +21,7 @@ import { map } from 'rxjs'
 export class DetailsMoviePageComponent {
     movieItem?: Movie
     id!: number
-    constructor(
-        private route: ActivatedRoute,
-        private fovouriteAndWatchListData: FavouriteAndWatchDataService,
-        private movieDataBase: MovieDataBaseService
-    ) {}
+    constructor(private route: ActivatedRoute, private movieDataBase: MovieAPIService) {}
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             if (params.has('id')) this.id = +params.get('id')!
@@ -40,9 +35,9 @@ export class DetailsMoviePageComponent {
     }
 
     addItemToFavouriteList(id: number | string) {
-        this.fovouriteAndWatchListData.setItemToFavouriteList(id, localStorage.getItem('accId')!)
+        this.movieDataBase.setItemToFavouriteList(id)
     }
     addItemToWatchList(id: number | string) {
-        this.fovouriteAndWatchListData.setItemToWatchList(id, localStorage.getItem('accId')!)
+        this.movieDataBase.setItemToWatchList(id)
     }
 }

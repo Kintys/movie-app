@@ -54,6 +54,7 @@ export const routes: Routes = [
     },
     {
         path: 'details/:id',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./pages/details-movie-page/details-movie-page.component').then((m) => m.DetailsMoviePageComponent)
     },

@@ -1,8 +1,8 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { Movie } from '@/app/movie-data/type-declorate'
-import { MovieDataBaseService } from '@/app/services/movie-data-base.service'
-
-import { Component, OnInit } from '@angular/core'
+import { MovieAPIService } from '@/app/services/movie-api.service'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs'
 
 @Component({
     selector: 'app-popular-page',
@@ -11,14 +11,19 @@ import { Component, OnInit } from '@angular/core'
     templateUrl: './popular-page.component.html',
     styleUrl: './popular-page.component.scss'
 })
-export class PopularPageComponent implements OnInit {
+export class PopularPageComponent implements OnInit, OnDestroy {
+    sub?: Subscription
     movieData!: Movie[]
 
-    constructor(private popularData: MovieDataBaseService) {}
+    constructor(private popularData: MovieAPIService) {}
 
     ngOnInit(): void {
-        this.popularData.getPopularList().subscribe({
+        this.sub = this.popularData.getPopularList().subscribe({
             next: (movieList) => (this.movieData = movieList.results)
         })
+    }
+
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe()
     }
 }

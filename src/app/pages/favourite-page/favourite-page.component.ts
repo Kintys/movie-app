@@ -2,6 +2,7 @@ import { MovieCardComponent } from '@/app/components/movie-card/movie-card.compo
 import { Component, OnInit } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
+import { MovieAPIService } from '@/app/services/movie-api.service'
 @Component({
     selector: 'app-favourite-page',
     standalone: true,
@@ -11,23 +12,14 @@ import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch
 })
 export class FavouritePageComponent implements OnInit {
     favouriteList!: Movie[]
-    token?: string
-    sessionId?: string
-    accId?: string
-    constructor(private favouriteData: FavouriteAndWatchDataService) {}
-    async ngOnInit(): Promise<void> {
-        this.sessionId = localStorage.getItem('sessionId')!
-        this.accId = localStorage.getItem('accId')!
-        this.loadFavouriteList()
-    }
-    loadFavouriteList() {
-        this.favouriteData.getFavouriteList(this.accId!, this.sessionId!).subscribe((val) => {
-            this.favouriteList = val.results
+    constructor(private favouriteData: FavouriteAndWatchDataService, private favouriteApi: MovieAPIService) {}
+    ngOnInit() {
+        this.favouriteData.getFavouriteMoviesListSubject().subscribe({
+            next: (movie) => (this.favouriteList = movie)
         })
+        this.favouriteApi.getFavouriteListFromApi()
     }
     deleteItemById(id: string | number) {
-        this.favouriteData.deleteItemFromFavouriteList(id, this.accId!).subscribe({
-            next: () => this.loadFavouriteList()
-        })
+        this.favouriteApi.deleteItemFromFavouriteList(id)
     }
 }
