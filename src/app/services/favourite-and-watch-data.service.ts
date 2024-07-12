@@ -1,51 +1,51 @@
 import { Injectable } from '@angular/core'
 import { Movie } from '../movie-data/type-declorate'
-import { Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 
 @Injectable({
     providedIn: 'root'
 })
 export class FavouriteAndWatchDataService {
     private favouriteMoviesList!: Movie[]
-    favouriteListSubject = new Subject<Movie[]>()
+    favouriteListSubject$ = new BehaviorSubject<Movie[]>([])
     //===========================================================
     private watchMovieList!: Movie[]
-    watchMovieListSubject = new Subject<Movie[]>()
+    watchMovieListSubject$ = new BehaviorSubject<Movie[]>([])
     //===========================================================
     constructor() {}
 
-    public get getFavouriteMoviesList() {
-        return this.favouriteMoviesList
-    }
-    public get getWatchMovieList() {
-        return this.watchMovieList
-    }
-    public getFavouriteMoviesListSubject() {
-        return this.favouriteListSubject
-    }
-    public getWatchMovieListSubject() {
-        return this.watchMovieListSubject
-    }
-    public set setFavouriteMoviesList(movieList: Movie[]) {
+    favourite$ = this.favouriteListSubject$.asObservable()
+
+    watchList$ = this.watchMovieListSubject$.asObservable()
+
+    public setFavouriteMoviesList(movieList: Movie[]) {
         this.favouriteMoviesList = [...movieList]
-        this.favouriteListSubject.next(this.getFavouriteMoviesList)
+        this.updateFavouriteList(this.favouriteMoviesList)
     }
-    public set setWatchMoviesList(movieList: Movie[]) {
+    public setWatchMoviesList(movieList: Movie[]) {
         this.watchMovieList = [...movieList]
-        this.watchMovieListSubject.next(this.getWatchMovieList)
+        this.updateWatchList(this.watchMovieList)
     }
-    addItemToFavouriteMoviesList(movie: Movie) {
+    public addItemToFavouriteMoviesList(movie: Movie) {
         this.favouriteMoviesList.push(movie)
-        this.favouriteListSubject.next(this.getFavouriteMoviesList)
+        this.updateFavouriteList(this.favouriteMoviesList)
     }
-    addItemToWatchMoviesList(movie: Movie) {
+    public addItemToWatchMoviesList(movie: Movie) {
         this.watchMovieList.push(movie)
-        this.watchMovieListSubject.next(this.getWatchMovieList)
+        this.updateWatchList(this.watchMovieList)
     }
-    removeItemFromFavouriteMoviesList(id: number | string) {
-        this.setFavouriteMoviesList = this.favouriteMoviesList.filter((movie) => movie.id !== id)
+    public removeItemFromFavouriteMoviesList(id: number | string) {
+        this.favouriteMoviesList = this.favouriteMoviesList.filter((movie) => movie.id !== id)
+        this.updateFavouriteList(this.favouriteMoviesList)
     }
-    removeItemFromWatchMoviesList(id: number | string) {
-        this.setWatchMoviesList = this.watchMovieList.filter((movie) => movie.id !== id)
+    public removeItemFromWatchMoviesList(id: number | string) {
+        this.watchMovieList = this.watchMovieList.filter((movie) => movie.id !== id)
+        this.updateWatchList(this.watchMovieList)
+    }
+    private updateFavouriteList(movie: Movie[]) {
+        this.favouriteListSubject$.next(movie)
+    }
+    private updateWatchList(movie: Movie[]) {
+        this.watchMovieListSubject$.next(movie)
     }
 }

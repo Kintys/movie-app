@@ -58,7 +58,7 @@ export class MovieAPIService {
                 }
             )
             .subscribe({
-                next: (movieList) => (this.favouriteWatchServices.setFavouriteMoviesList = movieList.results),
+                next: (movieList) => this.favouriteWatchServices.setFavouriteMoviesList(movieList.results),
                 error: (err) => console.log(err)
             })
     }
@@ -75,7 +75,7 @@ export class MovieAPIService {
                 }
             )
             .subscribe({
-                next: (movieList) => (this.favouriteWatchServices.setWatchMoviesList = movieList.results),
+                next: (movieList) => this.favouriteWatchServices.setWatchMoviesList(movieList.results),
                 error: (err) => console.log(err)
             })
     }

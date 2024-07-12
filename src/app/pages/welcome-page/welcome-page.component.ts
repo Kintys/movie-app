@@ -4,6 +4,7 @@ import { MovieCardComponent } from '@/app/components/movie-card/movie-card.compo
 import { RouterLink } from '@angular/router'
 import { MovieAPIService } from '@/app/services/movie-api.service'
 import { Subscription } from 'rxjs'
+
 @Component({
     selector: 'app-welcome-page',
     standalone: true,
@@ -14,9 +15,9 @@ import { Subscription } from 'rxjs'
 export class WelcomePageComponent implements OnInit, OnDestroy {
     sub?: Subscription
     movieData!: Movie[]
-    constructor(private welcomeData: MovieAPIService) {}
+    constructor(private movieAPIService: MovieAPIService) {}
     ngOnInit(): void {
-        this.sub = this.welcomeData.getAllMovies().subscribe({
+        this.sub = this.movieAPIService.getAllMovies().subscribe({
             next: (movieList) => (this.movieData = movieList)
         })
     }

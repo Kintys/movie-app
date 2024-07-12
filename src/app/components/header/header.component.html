@@ -1,15 +1,26 @@
 <header class="header">
     <app-sidebar-panel [openBar]="openSidebar" (closeBar)="openSidebar = $event"></app-sidebar-panel>
     <div class="header__container">
-        <a routerLink="/" class="header__logo logo">
+        <a routerLink="/welcome" class="header__logo logo">
             <p-avatar image="https://firebasestorage.googleapis.com/v0/b/exclusive-shop-c0f66.appspot.com/o/logo%2FLuxi-Fashion-Logo.svg?alt=media&token=3962d9bc-b796-46f6-b443-e7c223b56aad" size="xlarge" />
             <span class="logo__name">
                 {{logoTitle}}
             </span>
         </a>
         <div class="header__action">
-            <p-button (click)="openSidebar = true" icon="pi pi-bars" class="header__button" />
-            <p-button (click)="onSignOut()" class="header__button"><i class="pi pi-sign-out"></i></p-button>
+            <p-button (click)="openSidebar = true" icon="pi pi-bars" class="header__button" tooltipPosition="bottom" [pTooltip]="tooltipMenu" />
+            <ng-template #tooltipMenu>
+                <div>
+                    <span> <b>Click to open menu</b></span>
+                </div>
+            </ng-template>
+
+            <p-button (click)="onSignOut()" class="header__button" tooltipPosition="bottom" [pTooltip]="tooltipLogout"><i class="pi pi-sign-out"></i>
+                <ng-template #tooltipLogout>
+                    <div>
+                        <span> <b>Click to logout</b></span>
+                    </div>
+                </ng-template></p-button>
         </div>
 
         <nav class="header__menu  menu">

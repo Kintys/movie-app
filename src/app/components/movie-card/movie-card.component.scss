@@ -1,5 +1,13 @@
 @import "@/assets/scss/function.scss";
 .card {
+    position: relative;
+    @media (any-hover: hover) {
+        &:hover .content-card__action {
+            opacity: 1;
+            visibility: visible;
+            top: 0;
+        }
+    }
     // .card__image
     max-width: toRem(360);
     &__image {
@@ -48,10 +56,45 @@
         justify-content: center;
         font-size: toRem(18);
     }
+    &__action {
+        position: absolute;
+        top: -0.5%;
+        left: 0;
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+    &__buttons {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        gap: toRem(10);
+        padding-top: toRem(8);
+        padding-bottom: toRem(30);
+        &::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(36, 36, 46, 1) 77%,
+                rgba(61, 43, 61, 0.6167717086834734) 100%
+            );
+            border-radius: 0 0 toRem(2) toRem(2);
+        }
+    }
+    &__button {
+        z-index: 2;
+    }
 }
 .actions-card {
     display: flex;
     justify-content: center;
     gap: toRem(10);
-    // .actions-card__fauvorite-btn
 }

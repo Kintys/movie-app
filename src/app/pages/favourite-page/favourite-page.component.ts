@@ -13,16 +13,19 @@ import { Subscription } from 'rxjs'
 })
 export class FavouritePageComponent implements OnInit, OnDestroy {
     sub?: Subscription
-    favouriteList!: Movie[]
-    constructor(private favouriteData: FavouriteAndWatchDataService, private favouriteApi: MovieAPIService) {}
+    favouriteList?: Movie[]
+    constructor(
+        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
+        private movieAPIService: MovieAPIService
+    ) {}
     ngOnInit() {
-        this.favouriteData.getFavouriteMoviesListSubject().subscribe({
+        this.favouriteAndWatchDataService.favourite$.subscribe({
             next: (movie) => (this.favouriteList = movie)
         })
-        this.favouriteApi.getFavouriteListFromApi()
+        this.movieAPIService.getFavouriteListFromApi()
     }
     deleteItemById(id: string | number) {
-        this.favouriteApi.deleteItemFromFavouriteList(id)
+        this.movieAPIService.deleteItemFromFavouriteList(id)
     }
     ngOnDestroy(): void {
         this.sub?.unsubscribe()

@@ -14,16 +14,19 @@ import { Subscription } from 'rxjs'
 })
 export class WatchPageComponent implements OnInit, OnDestroy {
     sub?: Subscription
-    watchList!: Movie[]
-    constructor(private watchData: FavouriteAndWatchDataService, private watchApi: MovieAPIService) {}
+    watchList?: Movie[]
+    constructor(
+        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
+        private movieAPIService: MovieAPIService
+    ) {}
     ngOnInit() {
-        this.sub = this.watchData.getWatchMovieListSubject().subscribe({
+        this.sub = this.favouriteAndWatchDataService.watchList$.subscribe({
             next: (movie) => (this.watchList = movie)
         })
-        this.watchApi.getWatchListFromApi()
+        this.movieAPIService.getWatchListFromApi()
     }
     deleteItemById(id: string | number) {
-        this.watchApi.deleteItemFromWatchList(id)
+        this.movieAPIService.deleteItemFromWatchList(id)
     }
     ngOnDestroy(): void {
         this.sub?.unsubscribe()
