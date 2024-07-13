@@ -20,20 +20,6 @@
                 <p class="description__text">
                     {{movieItem!.overview}}
                 </p>
-                <div class="description__action">
-                    <p-button (click)="addItemToFavouriteList(movieItem!.id)" [pTooltip]="tooltipFavouriteList" tooltipPosition="bottom" icon="pi pi-heart-fill" class="hover" />
-                    <ng-template #tooltipFavouriteList>
-                        <div>
-                            <span> <b>Add to Your favourite list</b></span>
-                        </div>
-                    </ng-template>
-                    <p-button (click)="addItemToWatchList(movieItem!.id)" icon="pi pi-eye" [pTooltip]="tooltipWatchList" tooltipPosition="bottom" class="hover" />
-                    <ng-template #tooltipWatchList>
-                        <div>
-                            <span> <b>Add to Your watch list</b></span>
-                        </div>
-                    </ng-template>
-                </div>
             </div>
         </div>
     </div>

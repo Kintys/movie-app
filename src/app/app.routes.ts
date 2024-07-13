@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router'
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component'
+import { authGuard } from './guards/auth.guard'
 export const routes: Routes = [
     {
         path: '',
@@ -10,6 +11,7 @@ export const routes: Routes = [
     },
     {
         path: 'welcome',
+        canActivate: [authGuard],
         component: WelcomePageComponent
     },
     {
@@ -40,19 +42,27 @@ export const routes: Routes = [
             },
             {
                 path: 'favourite',
+                canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/favourite-page/favourite-page.component').then((m) => m.FavouritePageComponent)
             },
             {
                 path: 'watch',
+                canActivate: [authGuard],
                 loadComponent: () => import('./pages/watch-page/watch-page.component').then((m) => m.WatchPageComponent)
             }
         ]
     },
     {
         path: 'details/:id',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./pages/details-movie-page/details-movie-page.component').then((m) => m.DetailsMoviePageComponent)
+    },
+    {
+        path: 'auth',
+        loadComponent: () =>
+            import('./components/authentication/authentication.component').then((m) => m.AuthenticationComponent)
     },
     {
         path: '**',

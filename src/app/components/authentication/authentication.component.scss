@@ -1,0 +1,32 @@
+@import "@asset/scss/function.scss";
+.auth {
+    // .auth__container
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+    }
+
+    // .auth__title
+    &__box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &__title {
+        font-size: toRem(30);
+    }
+
+    // .auth__link
+
+    &__link {
+    }
+
+    // .auth__button
+
+    &__button {
+    }
+}

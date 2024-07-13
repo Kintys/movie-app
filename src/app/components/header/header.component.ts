@@ -5,11 +5,12 @@ import { ImageModule } from 'primeng/image'
 import { AvatarModule } from 'primeng/avatar'
 import { ButtonModule } from 'primeng/button'
 import { MenuItemModule } from '@/app/movie-data/type-declorate'
+import { TooltipModule } from 'primeng/tooltip'
 import { v4 as uuidv4 } from 'uuid'
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [RouterLink, RouterOutlet, SidebarPanelComponent, ImageModule, AvatarModule, ButtonModule],
+    imports: [RouterLink, RouterOutlet, SidebarPanelComponent, ImageModule, AvatarModule, ButtonModule, TooltipModule],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })
@@ -32,5 +33,8 @@ export class HeaderComponent implements OnInit {
                 icon: 'pi pi-eye'
             }
         ]
+    }
+    onSignOut() {
+        localStorage.clear()
     }
 }

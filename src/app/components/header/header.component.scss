@@ -13,6 +13,11 @@
     &__logo {
         margin-right: toRem(40);
     }
+    &__action {
+        display: flex;
+        align-items: center;
+        gap: toRem(10);
+    }
 
     // .header__menu
     &__menu {

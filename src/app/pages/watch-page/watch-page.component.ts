@@ -1,7 +1,9 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
-import { Component, OnInit } from '@angular/core'
+import { MovieAPIService } from '@/app/services/movie-api.service'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs'
 
 @Component({
     selector: 'app-watch-page',
@@ -10,24 +12,23 @@ import { Component, OnInit } from '@angular/core'
     templateUrl: './watch-page.component.html',
     styleUrl: './watch-page.component.scss'
 })
-export class WatchPageComponent implements OnInit {
-    watchList!: Movie[]
-    constructor(private watchData: FavouriteAndWatchDataService) {}
-    ngOnInit(): void {
-        this.loadWatchList()
-    }
-    loadWatchList() {
-        this.watchData.getWatchList().subscribe({
-            next: (watchMoviesList) => (this.watchList = watchMoviesList)
+export class WatchPageComponent implements OnInit, OnDestroy {
+    sub?: Subscription
+    watchList?: Movie[]
+    constructor(
+        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
+        private movieAPIService: MovieAPIService
+    ) {}
+    ngOnInit() {
+        this.sub = this.favouriteAndWatchDataService.watchList$.subscribe({
+            next: (movie) => (this.watchList = movie)
         })
+        this.movieAPIService.getWatchListFromApi()
     }
     deleteItemById(id: string | number) {
-        this.watchData.deleteItemFromWatchList(id).subscribe({
-            // Маю деякі сумніви що до цього рішення, якщо буде можливість і час, підскажить як оптимізувати цей код
-            next: () => this.loadWatchList(), // (повторний запит на сервер)
-            error(err) {
-                console.log(err)
-            }
-        })
+        this.movieAPIService.deleteItemFromWatchList(id)
+    }
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe()
     }
 }

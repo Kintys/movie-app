@@ -1,7 +1,9 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
+import { MovieAPIService } from '@/app/services/movie-api.service'
+import { Subscription } from 'rxjs'
 @Component({
     selector: 'app-favourite-page',
     standalone: true,
@@ -9,24 +11,23 @@ import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch
     templateUrl: './favourite-page.component.html',
     styleUrl: './favourite-page.component.scss'
 })
-export class FavouritePageComponent implements OnInit {
-    favouriteList!: Movie[]
-    constructor(private favouriteData: FavouriteAndWatchDataService) {}
-    ngOnInit(): void {
-        this.loadFavouriteList()
-    }
-    loadFavouriteList() {
-        this.favouriteData.getFavouriteList().subscribe({
-            next: (favouriteMovieList) => (this.favouriteList = favouriteMovieList)
+export class FavouritePageComponent implements OnInit, OnDestroy {
+    sub?: Subscription
+    favouriteList?: Movie[]
+    constructor(
+        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
+        private movieAPIService: MovieAPIService
+    ) {}
+    ngOnInit() {
+        this.favouriteAndWatchDataService.favourite$.subscribe({
+            next: (movie) => (this.favouriteList = movie)
         })
+        this.movieAPIService.getFavouriteListFromApi()
     }
     deleteItemById(id: string | number) {
-        this.favouriteData.deleteItemFromFavouriteList(id).subscribe({
-            // Маю деякі сумніви що до цього рішення, якщо буде можливість і час, підскажить як оптимізувати цей код
-            next: () => this.loadFavouriteList(), // (повторний запит )
-            error(err) {
-                console.log(err)
-            }
-        })
+        this.movieAPIService.deleteItemFromFavouriteList(id)
+    }
+    ngOnDestroy(): void {
+        this.sub?.unsubscribe()
     }
 }
