@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Movie } from '../movie-data/type-declorate'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
     providedIn: 'root'
@@ -14,9 +14,9 @@ export class FavouriteAndWatchDataService {
     //===========================================================
     constructor() {}
 
-    favourite$ = this.favouriteListSubject$.asObservable()
+    public readonly favourite$ = this.favouriteListSubject$.asObservable()
 
-    watchList$ = this.watchMovieListSubject$.asObservable()
+    public readonly watchList$ = this.watchMovieListSubject$.asObservable()
 
     public setFavouriteMoviesList(movieList: Movie[]) {
         this.favouriteMoviesList = [...movieList]
