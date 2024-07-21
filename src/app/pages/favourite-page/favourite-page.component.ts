@@ -1,33 +1,22 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
-import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
-import { MovieAPIService } from '@/app/services/movie-api.service'
-import { Subscription } from 'rxjs'
+import { deleteMovieFromFavouriteList } from '@/app/store/movie-store/movieActions'
+import { selectFavouriteList } from '@/app/store/movie-store/movieSelector'
+import { AsyncPipe } from '@angular/common'
+import { Component, DoCheck, OnInit } from '@angular/core'
+import { Store } from '@ngrx/store'
+
 @Component({
     selector: 'app-favourite-page',
     standalone: true,
-    imports: [MovieCardComponent],
+    imports: [MovieCardComponent, AsyncPipe],
     templateUrl: './favourite-page.component.html',
     styleUrl: './favourite-page.component.scss'
 })
-export class FavouritePageComponent implements OnInit, OnDestroy {
-    sub?: Subscription
-    favouriteList?: Movie[]
-    constructor(
-        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
-        private movieAPIService: MovieAPIService
-    ) {}
-    ngOnInit() {
-        this.favouriteAndWatchDataService.favourite$.subscribe({
-            next: (movie) => (this.favouriteList = movie)
-        })
-        this.movieAPIService.getFavouriteListFromApi()
-    }
+export class FavouritePageComponent {
+    selectedFavouriteList$ = this.store.select(selectFavouriteList)
+    constructor(private store: Store) {}
     deleteItemById(id: string | number) {
-        this.movieAPIService.deleteItemFromFavouriteList(id)
-    }
-    ngOnDestroy(): void {
-        this.sub?.unsubscribe()
+        this.store.dispatch(deleteMovieFromFavouriteList({ movieId: id }))
     }
 }

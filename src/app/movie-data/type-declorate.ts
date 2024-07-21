@@ -37,3 +37,10 @@ export interface SessionModule {
     session_id: string
     success: boolean
 }
+export interface CategoryMovies {
+    [key: string]: string
+    nowPlaying: string
+    popular: string
+    topRate: string
+    upcoming: string
+}

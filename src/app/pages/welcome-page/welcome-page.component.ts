@@ -1,27 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { RouterLink } from '@angular/router'
-import { MovieAPIService } from '@/app/services/movie-api.service'
 import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { selectAllMovieList } from '@/app/store/movie-store/movieSelector'
+import { AsyncPipe } from '@angular/common'
+import { MessageService } from 'primeng/api'
 
 @Component({
     selector: 'app-welcome-page',
     standalone: true,
-    imports: [MovieCardComponent, RouterLink],
+    imports: [MovieCardComponent, RouterLink, AsyncPipe],
     templateUrl: './welcome-page.component.html',
     styleUrl: './welcome-page.component.scss'
 })
-export class WelcomePageComponent implements OnInit, OnDestroy {
+export class WelcomePageComponent {
     sub?: Subscription
-    movieData!: Movie[]
-    constructor(private movieAPIService: MovieAPIService) {}
-    ngOnInit(): void {
-        this.sub = this.movieAPIService.getAllMovies().subscribe({
-            next: (movieList) => (this.movieData = movieList)
-        })
-    }
-    ngOnDestroy(): void {
-        this.sub?.unsubscribe()
-    }
+    movieData?: Movie[]
+    allMovieList$ = this.store.select(selectAllMovieList)
+    constructor(private store: Store) {}
 }

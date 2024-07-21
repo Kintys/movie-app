@@ -1,34 +1,21 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { Movie } from '@/app/movie-data/type-declorate'
-import { FavouriteAndWatchDataService } from '@/app/services/favourite-and-watch-data.service'
-import { MovieAPIService } from '@/app/services/movie-api.service'
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { deleteMovieFromWatchList } from '@/app/store/movie-store/movieActions'
+import { selectWatchList } from '@/app/store/movie-store/movieSelector'
+import { AsyncPipe } from '@angular/common'
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
 
 @Component({
     selector: 'app-watch-page',
     standalone: true,
-    imports: [MovieCardComponent],
+    imports: [MovieCardComponent, AsyncPipe],
     templateUrl: './watch-page.component.html',
     styleUrl: './watch-page.component.scss'
 })
-export class WatchPageComponent implements OnInit, OnDestroy {
-    sub?: Subscription
-    watchList?: Movie[]
-    constructor(
-        private favouriteAndWatchDataService: FavouriteAndWatchDataService,
-        private movieAPIService: MovieAPIService
-    ) {}
-    ngOnInit() {
-        this.sub = this.favouriteAndWatchDataService.watchList$.subscribe({
-            next: (movie) => (this.watchList = movie)
-        })
-        this.movieAPIService.getWatchListFromApi()
-    }
+export class WatchPageComponent {
+    selectedWatchList$ = this.store.select(selectWatchList)
+    constructor(private store: Store) {}
     deleteItemById(id: string | number) {
-        this.movieAPIService.deleteItemFromWatchList(id)
-    }
-    ngOnDestroy(): void {
-        this.sub?.unsubscribe()
+        this.store.dispatch(deleteMovieFromWatchList({ movieId: id }))
     }
 }

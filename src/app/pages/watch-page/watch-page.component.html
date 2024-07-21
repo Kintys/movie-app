@@ -1,4 +1,5 @@
 <div class="watch-page">
+    @if(selectedWatchList$ | async; as watchList){
     <div class="watch-page__container">
         <h1 class="watch-page__title">watch page</h1>
         <div class="watch-page__cards cards">
@@ -7,4 +8,5 @@
             }
         </div>
     </div>
+    }
 </div>
