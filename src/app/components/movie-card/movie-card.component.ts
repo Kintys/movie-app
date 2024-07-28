@@ -5,7 +5,6 @@ import { PrefixUrlPipe } from '@/app/pipes/prefix-url/prefix-url.pipe'
 import { Movie } from '@/app/movie-data/type-declorate'
 import { RouterLink } from '@angular/router'
 import { TooltipModule } from 'primeng/tooltip'
-import { MovieAPIService } from '@/app/services/movie-api.service'
 import { Store } from '@ngrx/store'
 import { addToFavouriteList, addToWatchList } from '@/app/store/movie-store/movieActions'
 @Component({
@@ -24,7 +23,7 @@ export class MovieCardComponent implements OnInit {
     ngOnInit() {
         this.cardData = this.dataValue
     }
-    constructor(private movieService: MovieAPIService, private store: Store) {}
+    constructor(private store: Store) {}
 
     addItemToFavouriteList(id: number | string) {
         this.store.dispatch(addToFavouriteList({ movieId: id }))

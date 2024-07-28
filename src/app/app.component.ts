@@ -20,12 +20,19 @@ export class AppComponent implements OnInit {
     selectedSuccess$ = this.store.select(selectSuccessStatus)
     ngOnInit(): void {
         this.selectedSuccess$.subscribe((status) => {
-            if (status) this.showToast1(status)
+            this.showToast1(status)
         })
     }
-    showToast1(msg: string) {
-        this.messageService.clear()
-        this.messageService.add({ key: 'toast1', severity: 'success', summary: 'Success', detail: msg })
+    showToast1(msg: string | undefined) {
+        if (msg) {
+            this.messageService.clear()
+        }
+        this.messageService.add({
+            key: 'toast1',
+            severity: 'success',
+            summary: 'Success',
+            detail: msg
+        })
         setTimeout(() => {
             this.store.dispatch(deleteSuccessStatus())
         }, 1000)

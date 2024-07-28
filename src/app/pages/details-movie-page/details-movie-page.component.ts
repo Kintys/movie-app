@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { ImageModule } from 'primeng/image'
 import { RatingModule } from 'primeng/rating'
