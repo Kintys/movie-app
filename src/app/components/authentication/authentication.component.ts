@@ -1,60 +1,38 @@
-import { AuthenticationService } from '@/app/services/authentication.service'
+import { loadAccountId, loadSessionId } from '@/app/store/user-store/userActions'
+import { selectSessionId, selectUserName } from '@/app/store/user-store/userSelectors'
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ActivatedRoute, RouterLink } from '@angular/router'
+import { Store } from '@ngrx/store'
 import { ButtonModule } from 'primeng/button'
 import { Subscription } from 'rxjs'
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'app-authentication',
     standalone: true,
-    imports: [ButtonModule, RouterLink],
+    imports: [ButtonModule],
     templateUrl: './authentication.component.html',
     styleUrl: './authentication.component.scss'
 })
 export class AuthenticationComponent implements OnInit, OnDestroy {
     title: string = 'Please log in.'
-    token?: string
-    sessionId?: string
-    id?: string
-    showBtn: boolean = false
-    private subscriptions: Subscription = new Subscription()
-    authServicesSub_1?: Subscription
-    authServicesSub_2?: Subscription
-    authServicesSub_3?: Subscription
-    constructor(private authServices: AuthenticationService, private router: ActivatedRoute) {}
+    sub$?: Subscription
+    selectedUser$ = this.store.select(selectUserName)
+    selectedSession$ = this.store.select(selectSessionId)
+    constructor(private store: Store, private location: Location) {}
+
     ngOnInit(): void {
-        if (this.router.snapshot.queryParams['approved']) {
-            this.title = 'Thank you!'
-            this.showBtn = true
-            this.token = localStorage.getItem('token')!
-            this.authServicesSub_1 = this.authServices.createNewSession(this.token).subscribe((newSession) => {
-                localStorage.setItem('sessionId', newSession.session_id)
-                this.authServicesSub_2 = this.authServices.getAccountDetails(newSession.session_id).subscribe((val) => {
-                    localStorage.setItem('accId', val.id)
-                })
-            })
-        }
-        this.subscriptions.add(this.authServicesSub_1)
-        this.subscriptions.add(this.authServicesSub_2)
-        this.subscriptions.add(this.authServicesSub_3)
-    }
-    onAuth() {
-        this.authServicesSub_3 = this.authServices.getAuthenticationToken().subscribe(async (val) => {
-            await this.openWindow(val.request_token)
-            localStorage.setItem('token', val.request_token)
+        this.sub$ = this.selectedUser$.subscribe((user) => {
+            if (user) this.location.back()
         })
     }
-    // виглядає погано, але кращого не придумав =)
-    async openWindow(token: string) {
-        const url = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:4200/auth`
-        const windowFeatures =
-            'width=800,height=600,left=200,top=100,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes'
-        const newWindow = window.open(url, '_blank', windowFeatures)
-        if (newWindow) {
-            window.close()
-        }
+    onAuth() {
+        this.store.dispatch(loadSessionId())
+        this.selectedSession$.subscribe((id) => {
+            if (id) this.store.dispatch(loadAccountId({ sessionId: id }))
+        })
     }
+
     ngOnDestroy(): void {
-        this.subscriptions.unsubscribe()
+        if (this.sub$) this.sub$.unsubscribe()
     }
 }

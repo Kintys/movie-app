@@ -1,158 +1,101 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Movie, MoviePage } from '../movie-data/type-declorate'
+import { CategoryMovies, Movie, MoviePage } from '../movie-data/type-declorate'
 import { Observable, combineLatest, map, tap } from 'rxjs'
 import { environment } from '@/environments/environment.development'
 import { FavouriteAndWatchDataService } from './favourite-and-watch-data.service'
+import { Store } from '@ngrx/store'
+import { selectAccountId, selectSessionId } from '../store/user-store/userSelectors'
 @Injectable({
     providedIn: 'root'
 })
 export class MovieAPIService {
-    getWatchMovieListSubject() {
-        throw new Error('Method not implemented.')
+    readonly apiUrl = environment.apiUrl
+    readonly apiKey = environment.apiKey
+    readonly apiToken = environment.apiToken
+    readonly headers = {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        Authorization: this.apiToken
     }
-    apiUrl = environment.apiUrl
-    apiKey = environment.apiKey
-    apiToken = environment.apiToken
-    constructor(private http: HttpClient, private favouriteWatchServices: FavouriteAndWatchDataService) {}
+    constructor(
+        private http: HttpClient,
+        private favouriteWatchServices: FavouriteAndWatchDataService,
+        private store: Store
+    ) {}
+
     private get accountId() {
-        return localStorage.getItem('accId')!
+        let accountId
+        this.store.select(selectAccountId).subscribe((id) => (accountId = id))
+        return accountId
     }
     private get sessionId() {
-        return localStorage.getItem('sessionId')!
+        let sessionId
+        this.store.select(selectSessionId).subscribe((id) => (sessionId = id))
+        return sessionId
     }
-    public getPlayingList(): Observable<MoviePage> {
-        return this.http.get<MoviePage>(`${this.apiUrl}movie/now_playing${this.apiKey}`)
+    public getMovieListWitCat(category: string | null): Observable<MoviePage> {
+        return this.http.get<MoviePage>(`${this.apiUrl}movie/${category}${this.apiKey}`)
     }
-    public getPopularList(): Observable<MoviePage> {
-        return this.http.get<MoviePage>(`${this.apiUrl}movie/popular${this.apiKey}`)
-    }
-    public getTopList(): Observable<MoviePage> {
-        return this.http.get<MoviePage>(`${this.apiUrl}movie/top_rated${this.apiKey}`)
-    }
-    public getUpcomingList(): Observable<MoviePage> {
-        return this.http.get<MoviePage>(`${this.apiUrl}movie/upcoming${this.apiKey}`)
-    }
-    public getAllMovies(): Observable<Movie[]> {
-        return combineLatest([
-            this.getPlayingList(),
-            this.getPopularList(),
-            this.getTopList(),
-            this.getUpcomingList()
-        ]).pipe(
-            map(([playing, popular, top, upcoming]) =>
-                Array.from(new Set([...playing.results, ...popular.results, ...top.results, ...upcoming.results]))
-            )
-        )
+    public getAllMovies(categoryObj: CategoryMovies): Observable<MoviePage[]> {
+        const observables = []
+        for (const catName in categoryObj) {
+            if (categoryObj.hasOwnProperty(catName)) {
+                observables.push(this.getMovieListWitCat(categoryObj[catName]))
+            }
+        }
+        return combineLatest(observables)
     }
     public getFavouriteListFromApi() {
-        this.http
-            .get<MoviePage>(
-                `${this.apiUrl}account/${this.accountId}/favorite/movies?language=en-US&page=1&session_id=${this.sessionId}&sort_by=created_at.asc`,
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: (movieList) => this.favouriteWatchServices.setFavouriteMoviesList(movieList.results),
-                error: (err) => console.log(err)
-            })
+        return this.http.get<MoviePage>(
+            `${this.apiUrl}account/${this.accountId}/favorite/movies?language=en-US&page=1&session_id=${this.sessionId}&sort_by=created_at.asc`,
+            {
+                headers: this.headers
+            }
+        )
     }
     public getWatchListFromApi() {
-        this.http
-            .get<MoviePage>(
-                `${this.apiUrl}account/${this.accountId}/watchlist/movies?language=en-US&page=1&session_id=${this.sessionId}&sort_by=created_at.asc`,
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: (movieList) => this.favouriteWatchServices.setWatchMoviesList(movieList.results),
-                error: (err) => console.log(err)
-            })
+        return this.http.get<MoviePage>(
+            `${this.apiUrl}account/${this.accountId}/watchlist/movies?language=en-US&page=1&session_id=${this.sessionId}&sort_by=created_at.asc`,
+            {
+                headers: this.headers
+            }
+        )
     }
     public setItemToFavouriteList(id: number | string) {
-        this.http
-            .post<Movie>(
-                `${this.apiUrl}account/${this.accountId}/favorite`,
-                { media_type: 'movie', media_id: id, favorite: true },
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: (val) => this.favouriteWatchServices.addItemToFavouriteMoviesList(val),
-                error(err) {
-                    console.log(err)
-                }
-            })
+        return this.http.post<Movie>(
+            `${this.apiUrl}account/${this.accountId}/favorite`,
+            { media_type: 'movie', media_id: id, favorite: true },
+            {
+                headers: this.headers
+            }
+        )
     }
     public setItemToWatchList(id: number | string) {
-        this.http
-            .post<Movie>(
-                `${this.apiUrl}account/${this.accountId}/watchlist`,
-                { media_type: 'movie', media_id: id, watchlist: true },
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: (val) => this.favouriteWatchServices.addItemToWatchMoviesList(val),
-                error(err) {
-                    console.log(err)
-                }
-            })
+        return this.http.post<Movie>(
+            `${this.apiUrl}account/${this.accountId}/watchlist`,
+            { media_type: 'movie', media_id: id, watchlist: true },
+            {
+                headers: this.headers
+            }
+        )
     }
     public deleteItemFromFavouriteList(id: number | string) {
-        this.http
-            .post<Movie>(
-                `https://api.themoviedb.org/3/account/${this.accountId}/favorite`,
-                { media_type: 'movie', media_id: id, favorite: false },
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: () => this.favouriteWatchServices.removeItemFromFavouriteMoviesList(id),
-                error: (err) => console.log(err)
-            })
+        return this.http.post<Movie>(
+            `https://api.themoviedb.org/3/account/${this.accountId}/favorite`,
+            { media_type: 'movie', media_id: id, favorite: false },
+            {
+                headers: this.headers
+            }
+        )
     }
     public deleteItemFromWatchList(id: number | string) {
-        this.http
-            .post<Movie>(
-                `${this.apiUrl}account/${this.accountId}/watchlist`,
-                { media_type: 'movie', media_id: id, watchlist: false },
-                {
-                    headers: {
-                        accept: 'application/json',
-                        'content-type': 'application/json',
-                        Authorization: this.apiToken
-                    }
-                }
-            )
-            .subscribe({
-                next: () => this.favouriteWatchServices.removeItemFromWatchMoviesList(id),
-                error: (err) => console.log(err)
-            })
+        return this.http.post<Movie>(
+            `${this.apiUrl}account/${this.accountId}/watchlist`,
+            { media_type: 'movie', media_id: id, watchlist: false },
+            {
+                headers: this.headers
+            }
+        )
     }
 }

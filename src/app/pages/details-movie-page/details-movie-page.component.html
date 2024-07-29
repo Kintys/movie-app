@@ -1,7 +1,8 @@
 <div class="description">
     <div class="description__container">
+        @if(selectedMovieById$ | async; as movieItem){
         <div class="description__backdrop">
-            @if(movieItem!.backdrop_path){
+            @if(movieItem?.backdrop_path){
             <p-image [src]="movieItem!.backdrop_path  | prefixUrl " width="100%" alt="Image"></p-image>
             }
         </div>
@@ -22,5 +23,6 @@
                 </p>
             </div>
         </div>
+        }
     </div>
 </div>

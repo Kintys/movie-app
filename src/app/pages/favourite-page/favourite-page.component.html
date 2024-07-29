@@ -1,10 +1,12 @@
 <div class="favourite-page">
+    @if(selectedFavouriteList$|async; as favouriteList){
     <div class="favourite-page__container">
         <h1 class="favourite-page__title">favourite page</h1>
         <div class="favourite-page__cards cards">
             @for (movie of favouriteList; track movie.id) {
-            <app-movie-card (deleteItem)="deleteItemById($event)" [deleteCard]="true" [dataValue]="movie"></app-movie-card>
+            <app-movie-card (deleteItem)="deleteItemById($event)" [deleteCard]="true" [dataValue]="movie" [showActionBar]="false"></app-movie-card>
             }
         </div>
     </div>
+    }
 </div>

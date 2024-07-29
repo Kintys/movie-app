@@ -2,16 +2,9 @@
     <div class="auth__container">
         <div class="auth__box">
             <h1 class="auth__title">{{title}}</h1>
-            @if(showBtn){
-            <div class="auth__link">
-                <p-button routerLink="" label="Go Back" icon="pi pi-arrow-left" />
-            </div>
-            }
-            @else {
             <p-button class="auth__button" (click)="onAuth()">
                 Authorization
             </p-button>
-            }
         </div>
     </div>
 </div>

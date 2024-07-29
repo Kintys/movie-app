@@ -3,6 +3,7 @@
         <a [routerLink]="['/details' ,cardData?.id]" class="content-card__rating rating">
             <img [src]="cardData!.poster_path | prefixUrl" class="card__image" alt="Image">
         </a>
+        @if(showActionBar){
         <div class="content-card__action">
             <div class="content-card__buttons">
                 <p-button (click)="addItemToFavouriteList(cardData!.id)" [pTooltip]="tooltipFavouriteList" tooltipPosition="bottom" icon="pi pi-heart-fill" class="content-card__button hover" />
@@ -19,6 +20,7 @@
                 </ng-template>
             </div>
         </div>
+        }
     </ng-template>
     @if (deleteCard) {
     <p-button icon="pi pi-trash" (click)="deleteItemById(cardData!.id)" />
