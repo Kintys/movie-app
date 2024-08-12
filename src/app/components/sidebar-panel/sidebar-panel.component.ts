@@ -3,7 +3,7 @@ import { SidebarModule } from 'primeng/sidebar'
 import { AvatarModule } from 'primeng/avatar'
 import { RouterLink } from '@angular/router'
 import { v4 as uuidv4 } from 'uuid'
-import { MenuItemModule } from '../../movie-data/type-declorate'
+import { MenuItemModule } from '../../shared/type-declorate'
 @Component({
     selector: 'app-sidebar-panel',
     standalone: true,

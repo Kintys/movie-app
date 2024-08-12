@@ -7,28 +7,41 @@
                 {{logoTitle}}
             </span>
         </a>
-        <div class="header__action">
+        <div class="header__action action">
             <p-button (click)="openSidebar = true" icon="pi pi-bars" class="header__button" tooltipPosition="bottom" [pTooltip]="tooltipMenu" />
             <ng-template #tooltipMenu>
                 <div>
                     <span> <b>Click to open menu</b></span>
                 </div>
             </ng-template>
-
             <p-button (click)="onSignOut()" class="header__button" tooltipPosition="bottom" [pTooltip]="tooltipLogout"><i class="pi pi-sign-out"></i>
                 <ng-template #tooltipLogout>
                     <div>
                         <span> <b>Click to logout</b></span>
                     </div>
                 </ng-template></p-button>
-        </div>
+            @if(isProfilePhoto){
+            <div class="action__profile profile">
+                @if(isGooglePhoto){
+                <img class="profile__img" [src]="userProfile" alt="Image">
+                } @else {
+                <div class="profile__wrapper">
+                    {{userProfile}}
+                </div>
+                }
+            </div>
+            }
 
+        </div>
         <nav class="header__menu  menu">
+            @if(isProfilePhoto){
             <ul class="menu__list">
                 @for (link of links; track link.id) {
                 <li class="menu__item"><a [routerLink]='link.path' class="menu__link hover-link"><i [class]="link.icon"></i> <span>{{link.name}}</span></a></li>
                 }
             </ul>
+            }
+            <p-button (onClick)="onSubscribe()">Subscribe</p-button>
         </nav>
     </div>
 </header>

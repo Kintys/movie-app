@@ -5,7 +5,7 @@ import { FavouritePageComponent } from './favourite-page.component'
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { deleteMovieFromFavouriteList } from '@/app/store/movie-store/movieActions'
 import { AsyncPipe } from '@angular/common'
-import { movieMock } from '@/app/movie-data/mock-data'
+import { movieMock } from '@/app/shared/mock-data'
 import { ActivatedRoute } from '@angular/router'
 
 describe('FavouritePageComponent', () => {

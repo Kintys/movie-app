@@ -6,7 +6,7 @@ import { MovieCardComponent } from '@/app/components/movie-card/movie-card.compo
 import { deleteMovieFromWatchList } from '@/app/store/movie-store/movieActions'
 import { ActivatedRoute } from '@angular/router'
 import { AsyncPipe } from '@angular/common'
-import { movieMock } from '@/app/movie-data/mock-data'
+import { movieMock } from '@/app/shared/mock-data'
 
 describe('WatchPageComponent', () => {
     let component: WatchPageComponent

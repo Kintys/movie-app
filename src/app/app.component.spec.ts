@@ -3,7 +3,6 @@ import { AppComponent } from './app.component'
 import { MessageService } from 'primeng/api'
 import { Store } from '@ngrx/store'
 import { of } from 'rxjs'
-import { deleteSuccessStatus } from './store/movie-store/movieActions'
 import { ActivatedRoute } from '@angular/router'
 
 describe('AppComponent', () => {
@@ -82,13 +81,13 @@ describe('AppComponent', () => {
     //     })
     // })
 
-    it('should dispatch deleteSuccessStatus after timeout in showToast1', fakeAsync(() => {
-        component.showToast1('Test success message')
+    // it('should dispatch deleteSuccessStatus after timeout in showToast1', fakeAsync(() => {
+    //     component.showToast1('Test success message')
 
-        tick(1000)
+    //     tick(1000)
 
-        expect(store.dispatch).toHaveBeenCalledWith(deleteSuccessStatus())
-    }))
+    //     expect(store.dispatch).toHaveBeenCalledWith(deleteSuccessStatus())
+    // }))
 })
 
 jest.mock('uuid', () => ({

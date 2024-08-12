@@ -1,0 +1,738 @@
+import { Movie, MoviePage } from './type-declorate'
+
+export const movieMock: Movie = {
+    adult: false,
+    backdrop_path: '/coATv42PoiLqAFKStJiMZs2r6Zb.jpg',
+    genre_ids: [16, 10751, 18, 12, 35],
+    id: 1022789,
+    original_language: 'en',
+    original_title: 'Inside Out 2',
+    overview:
+        "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+    popularity: 9750.804,
+    poster_path: '/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',
+    release_date: '2024-06-11',
+    title: 'Inside Out 2',
+    video: false,
+    vote_average: 7.763,
+    vote_count: 226
+}
+
+export const movieMockArr: Movie[] = [
+    {
+        adult: false,
+        backdrop_path: '/coATv42PoiLqAFKStJiMZs2r6Zb.jpg',
+        genre_ids: [16, 10751, 18, 12, 35],
+        id: 1022789,
+        original_language: 'en',
+        original_title: 'Inside Out 2',
+        overview:
+            "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+        popularity: 9750.804,
+        poster_path: '/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',
+        release_date: '2024-06-11',
+        title: 'Inside Out 2',
+        video: false,
+        vote_average: 7.763,
+        vote_count: 226
+    }
+]
+
+export const movieMockPageArr: MoviePage[] = [
+    {
+        page: 1,
+        results: [
+            {
+                adult: false,
+                backdrop_path: '/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',
+                genre_ids: [28, 35, 878],
+                id: 533535,
+                original_language: 'en',
+                original_title: 'Deadpool & Wolverine',
+                overview:
+                    'A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.',
+                popularity: 13902.556,
+                poster_path: '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',
+                release_date: '2024-07-24',
+                title: 'Deadpool & Wolverine',
+                video: false,
+                vote_average: 7.875,
+                vote_count: 1707
+            },
+            {
+                adult: false,
+                backdrop_path: '/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg',
+                genre_ids: [16, 10751, 35, 28],
+                id: 519182,
+                original_language: 'en',
+                original_title: 'Despicable Me 4',
+                overview:
+                    'Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.',
+                popularity: 3956.264,
+                poster_path: '/wWba3TaojhK7NdycRhoQpsG0FaH.jpg',
+                release_date: '2024-06-20',
+                title: 'Despicable Me 4',
+                video: false,
+                vote_average: 7.36,
+                vote_count: 895
+            },
+            {
+                adult: false,
+                backdrop_path: '/3q01ACG0MWm0DekhvkPFCXyPZSu.jpg',
+                genre_ids: [28, 80, 53, 35],
+                id: 573435,
+                original_language: 'en',
+                original_title: 'Bad Boys: Ride or Die',
+                overview:
+                    'After their late former Captain is framed, Lowrey and Burnett try to clear his name, only to end up on the run themselves.',
+                popularity: 4090.618,
+                poster_path: '/oGythE98MYleE6mZlGs5oBGkux1.jpg',
+                release_date: '2024-06-05',
+                title: 'Bad Boys: Ride or Die',
+                video: false,
+                vote_average: 7.637,
+                vote_count: 1486
+            },
+            {
+                adult: false,
+                backdrop_path: '/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg',
+                genre_ids: [16, 10751, 12, 35],
+                id: 1022789,
+                original_language: 'en',
+                original_title: 'Inside Out 2',
+                overview:
+                    "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+                popularity: 3731.653,
+                poster_path: '/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',
+                release_date: '2024-06-11',
+                title: 'Inside Out 2',
+                video: false,
+                vote_average: 7.615,
+                vote_count: 2336
+            },
+            {
+                adult: false,
+                backdrop_path: '/2RVcJbWFmICRDsVxRI8F5xRmRsK.jpg',
+                genre_ids: [27, 878, 53],
+                id: 762441,
+                original_language: 'en',
+                original_title: 'A Quiet Place: Day One',
+                overview:
+                    'As New York City is invaded by alien creatures who hunt by sound, a woman named Sam fights to survive with her cat.',
+                popularity: 2983.919,
+                poster_path: '/yrpPYKijwdMHyTGIOd1iK1h0Xno.jpg',
+                release_date: '2024-06-26',
+                title: 'A Quiet Place: Day One',
+                video: false,
+                vote_average: 6.938,
+                vote_count: 1216
+            },
+            {
+                adult: false,
+                backdrop_path: '/5W1sQidR2a9e8O1vk2IDhzbT4W7.jpg',
+                genre_ids: [28, 53],
+                id: 1129598,
+                original_language: 'en',
+                original_title: 'Prey',
+                overview:
+                    'A young couple is compelled to leave their Christian missionary station in the Kalahari Desert after being threatened with death by an extremist militant gang. After crashing their aircraft they must battle man and beast for their lives.',
+                popularity: 2502.407,
+                poster_path: '/5wAlO5zZ3IyzLBAf7cp5WejalmG.jpg',
+                release_date: '2024-03-15',
+                title: 'Prey',
+                video: false,
+                vote_average: 6.503,
+                vote_count: 146
+            },
+            {
+                adult: false,
+                backdrop_path: '/r7HV1rKdUus2gJNChswMtpjpPft.jpg',
+                genre_ids: [16, 35, 12, 10751],
+                id: 831815,
+                original_language: 'en',
+                original_title: 'Saving Bikini Bottom: The Sandy Cheeks Movie',
+                overview:
+                    'When Bikini Bottom is scooped from the ocean, scientific squirrel Sandy Cheeks and her pal SpongeBob SquarePants saddle up for Texas to save their town.',
+                popularity: 2170.463,
+                poster_path: '/30YnfZdMNIV7noWLdvmcJS0cbnQ.jpg',
+                release_date: '2024-08-01',
+                title: 'Saving Bikini Bottom: The Sandy Cheeks Movie',
+                video: false,
+                vote_average: 6.375,
+                vote_count: 112
+            },
+            {
+                adult: false,
+                backdrop_path: '/8yPSYhooj8nyBbmV3GVdLDwuE7e.jpg',
+                genre_ids: [18, 10749],
+                id: 1079091,
+                original_language: 'en',
+                original_title: 'It Ends with Us',
+                overview:
+                    "Lily overcomes a traumatic childhood to embark on a new life. A chance meeting with neurosurgeon Ryle sparks a connection but Lily begins to see sides of him that remind her of her parents' relationship.",
+                popularity: 1351.566,
+                poster_path: '/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg',
+                release_date: '2024-08-07',
+                title: 'It Ends with Us',
+                video: false,
+                vote_average: 7.462,
+                vote_count: 39
+            },
+            {
+                adult: false,
+                backdrop_path: '/tqSg1hHiSWhHAhnjDhhevaFGsP0.jpg',
+                genre_ids: [28, 18],
+                id: 1066262,
+                original_language: 'en',
+                original_title: 'The Convert',
+                overview:
+                    'Munro, a soldier turned lay preacher, comes to New Zealand to minister to the first British colonists, but he is converted by the powerful chief Maianui to serve a different purpose.',
+                popularity: 1614.423,
+                poster_path: '/e5ZqqPlhKstzB4geibpZh38w7Pq.jpg',
+                release_date: '2024-03-14',
+                title: 'The Convert',
+                video: false,
+                vote_average: 6.462,
+                vote_count: 39
+            },
+            {
+                adult: false,
+                backdrop_path: '/c3rwwFFVbkyEI6wPtpPd9lvovPW.jpg',
+                genre_ids: [28, 36],
+                id: 1311550,
+                original_language: 'en',
+                original_title: "House of Ga'a",
+                overview:
+                    "At the height of the Oyo Empire, the ferocious Bashorun Ga'a became more powerful than the kings he enthroned, only to be undone by his own blood.",
+                popularity: 1509.853,
+                poster_path: '/6yK9hmS641NMwRkR1wWAALWI34t.jpg',
+                release_date: '2024-07-26',
+                title: "House of Ga'a",
+                video: false,
+                vote_average: 5.964,
+                vote_count: 28
+            },
+            {
+                adult: false,
+                backdrop_path: '/1wP1phHo2CROOqzv7Azs0MT5esU.jpg',
+                genre_ids: [16, 35, 10751, 12],
+                id: 748783,
+                original_language: 'en',
+                original_title: 'The Garfield Movie',
+                overview:
+                    'Garfield, the world-famous, Monday-hating, lasagna-loving indoor cat, is about to have a wild outdoor adventure! After an unexpected reunion with his long-lost father – scruffy street cat Vic – Garfield and his canine friend Odie are forced from their perfectly pampered life into joining Vic in a hilarious, high-stakes heist.',
+                popularity: 1468.061,
+                poster_path: '/xYduFGuch9OwbCOEUiamml18ZoB.jpg',
+                release_date: '2024-04-30',
+                title: 'The Garfield Movie',
+                video: false,
+                vote_average: 7.207,
+                vote_count: 726
+            },
+            {
+                adult: false,
+                backdrop_path: '/viKEEaaCaZ0hZ2nGuvIEozlLooL.jpg',
+                genre_ids: [27, 80, 9648],
+                id: 1023922,
+                original_language: 'en',
+                original_title: 'MaXXXine',
+                overview:
+                    'In 1980s Hollywood, adult film star and aspiring actress Maxine Minx finally gets her big break. But as a mysterious killer stalks the starlets of Hollywood, a trail of blood threatens to reveal her sinister past.',
+                popularity: 1044.896,
+                poster_path: '/ArvoFK6nlouZRxYmtIOUzKIrg90.jpg',
+                release_date: '2024-07-04',
+                title: 'MaXXXine',
+                video: false,
+                vote_average: 6.369,
+                vote_count: 268
+            },
+            {
+                adult: false,
+                backdrop_path: '/fqv8v6AycXKsivp1T5yKtLbGXce.jpg',
+                genre_ids: [878, 12, 28],
+                id: 653346,
+                original_language: 'en',
+                original_title: 'Kingdom of the Planet of the Apes',
+                overview:
+                    "Several generations following Caesar's reign, apes – now the dominant species – live harmoniously while humans have been reduced to living in the shadows. As a new tyrannical ape leader builds his empire, one young ape undertakes a harrowing journey that will cause him to question all he's known about the past and to make choices that will define a future for apes and humans alike.",
+                popularity: 1260.064,
+                poster_path: '/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',
+                release_date: '2024-05-08',
+                title: 'Kingdom of the Planet of the Apes',
+                video: false,
+                vote_average: 7.174,
+                vote_count: 2410
+            },
+            {
+                adult: false,
+                backdrop_path: '/wNAhuOZ3Zf84jCIlrcI6JhgmY5q.jpg',
+                genre_ids: [28, 12, 878],
+                id: 786892,
+                original_language: 'en',
+                original_title: 'Furiosa: A Mad Max Saga',
+                overview:
+                    'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland they come across the Citadel presided over by The Immortan Joe. While the two Tyrants war for dominance, Furiosa must survive many trials as she puts together the means to find her way home.',
+                popularity: 1203.124,
+                poster_path: '/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',
+                release_date: '2024-05-22',
+                title: 'Furiosa: A Mad Max Saga',
+                video: false,
+                vote_average: 7.622,
+                vote_count: 2560
+            },
+            {
+                adult: false,
+                backdrop_path: '/w22yUH5pAZ3CcTjbw9GEzPd5wxs.jpg',
+                genre_ids: [878, 35],
+                id: 1242372,
+                original_language: 'zh',
+                original_title: '从21世纪安全撤离',
+                overview:
+                    'On Planet K, unknown to anyone on Earth, three teenagers chosen by fate can travel back and forth twenty years into the future by sneezing. In the face of a shocking plot to destroy the world, they have nothing but crystal-clear stupidity and single-digit combat power, so how can they transform into heroes and fight against the super-villainous villains who are intent on destroying the world? How can they turn into heroes and fight against the super baddest villains intent on destroying the world? The "King Bomb" brothers, who look like grown-ups but have minds like no other, will save the future on behalf of the K-Star!',
+                popularity: 865.809,
+                poster_path: '/nZQPbD7IEKWiUDK7s9GKHwqP88g.jpg',
+                release_date: '2024-07-18',
+                title: 'Escape from the 21st Century',
+                video: false,
+                vote_average: 7.167,
+                vote_count: 15
+            },
+            {
+                adult: false,
+                backdrop_path: '/s5znBQmprDJJ553IMQfwEVlfroH.jpg',
+                genre_ids: [28, 35, 10752],
+                id: 799583,
+                original_language: 'en',
+                original_title: 'The Ministry of Ungentlemanly Warfare',
+                overview:
+                    'During World War II, the British Army assigns a group of competent soldiers to carry out a mission against the Nazi forces behind enemy lines... A true story about a secret British WWII organization – the Special Operations Executive. Founded by Winston Churchill, their irregular warfare against the Germans helped to change the course of the war, and gave birth to modern black operations.',
+                popularity: 1051.456,
+                poster_path: '/8aF0iAKH9MJMYAZdi0Slg77RYa2.jpg',
+                release_date: '2024-04-18',
+                title: 'The Ministry of Ungentlemanly Warfare',
+                video: false,
+                vote_average: 7.164,
+                vote_count: 770
+            },
+            {
+                adult: false,
+                backdrop_path: '/dn3gbDpXPSwC6saMJOHkCiFA9jn.jpg',
+                genre_ids: [14, 12, 10751, 35],
+                id: 974262,
+                original_language: 'en',
+                original_title: 'Descendants: The Rise of Red',
+                overview:
+                    "After the Queen of Hearts incites a coup on Auradon, her rebellious daughter Red and Cinderella's perfectionist daughter Chloe join forces and travel back in time to try to undo the traumatic event that set Red's mother down her villainous path.",
+                popularity: 920.52,
+                poster_path: '/t9u9FWpKlZcp0Wz1qPeV5AIzDsk.jpg',
+                release_date: '2024-07-11',
+                title: 'Descendants: The Rise of Red',
+                video: false,
+                vote_average: 7,
+                vote_count: 235
+            },
+            {
+                adult: false,
+                backdrop_path: '/dsGwCEO8tda4FlgHKvL95f0oQbH.jpg',
+                genre_ids: [16, 878, 28],
+                id: 1209290,
+                original_language: 'en',
+                original_title: 'Justice League: Crisis on Infinite Earths Part Three',
+                overview:
+                    'Now fully revealed as the ultimate threat to existence, the Anti-Monitor wages an unrelenting attack on the surviving Earths that struggle for survival in a pocket universe. One by one, these worlds and all their inhabitants are vaporized! On the planets that remain, even time itself is shattered, and heroes from the past join the Justice League and their rag-tag allies against the epitome of evil. But as they make their last stand, will the sacrifice of the superheroes be enough to save us all?',
+                popularity: 973.987,
+                poster_path: '/a3q8NkM8uTh9E23VsbUOdDSbBeN.jpg',
+                release_date: '2024-07-16',
+                title: 'Justice League: Crisis on Infinite Earths Part Three',
+                video: false,
+                vote_average: 7.49,
+                vote_count: 143
+            },
+            {
+                adult: false,
+                backdrop_path: '/6Vbm2nHxHMlZZ199fmZtMytpFvK.jpg',
+                genre_ids: [28, 53, 35, 18],
+                id: 1309923,
+                original_language: 'es',
+                original_title: 'No negociable',
+                overview:
+                    'Hostage negotiator Alan Bender is called to rescue the president from a kidnapping, only to find himself also mediating to save his wife and marriage.',
+                popularity: 923.443,
+                poster_path: '/bHQG4UsLMFCy91gfLAFRpnCOPdP.jpg',
+                release_date: '2024-07-25',
+                title: 'Non Negotiable',
+                video: false,
+                vote_average: 5.85,
+                vote_count: 60
+            },
+            {
+                adult: false,
+                backdrop_path: '/e6FWExcyn1rxcfYSOrApm94Rga0.jpg',
+                genre_ids: [27, 53],
+                id: 1175038,
+                original_language: 'en',
+                original_title: 'Stranger in the Woods',
+                overview:
+                    "Olivia and her friends go on a vacation. After Olivia nearly drowns with a slit wrist in her bathtub after her fiancé's funeral, her friends suspect that she tried to kill herself, but she believes someone attacked her.",
+                popularity: 805.382,
+                poster_path: '/qcrbiVMOkAaOyha8BqyVDQCTwh6.jpg',
+                release_date: '2024-02-14',
+                title: 'Stranger in the Woods',
+                video: false,
+                vote_average: 6.493,
+                vote_count: 71
+            }
+        ],
+        total_pages: 45504,
+        total_results: 910073,
+        category: null
+    }
+]
+export const movieMockPageObj: MoviePage = {
+    page: 1,
+    results: [
+        {
+            adult: false,
+            backdrop_path: '/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',
+            genre_ids: [28, 35, 878],
+            id: 533535,
+            original_language: 'en',
+            original_title: 'Deadpool & Wolverine',
+            overview:
+                'A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.',
+            popularity: 13902.556,
+            poster_path: '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',
+            release_date: '2024-07-24',
+            title: 'Deadpool & Wolverine',
+            video: false,
+            vote_average: 7.875,
+            vote_count: 1707
+        },
+        {
+            adult: false,
+            backdrop_path: '/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg',
+            genre_ids: [16, 10751, 35, 28],
+            id: 519182,
+            original_language: 'en',
+            original_title: 'Despicable Me 4',
+            overview:
+                'Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.',
+            popularity: 3956.264,
+            poster_path: '/wWba3TaojhK7NdycRhoQpsG0FaH.jpg',
+            release_date: '2024-06-20',
+            title: 'Despicable Me 4',
+            video: false,
+            vote_average: 7.36,
+            vote_count: 895
+        },
+        {
+            adult: false,
+            backdrop_path: '/3q01ACG0MWm0DekhvkPFCXyPZSu.jpg',
+            genre_ids: [28, 80, 53, 35],
+            id: 573435,
+            original_language: 'en',
+            original_title: 'Bad Boys: Ride or Die',
+            overview:
+                'After their late former Captain is framed, Lowrey and Burnett try to clear his name, only to end up on the run themselves.',
+            popularity: 4090.618,
+            poster_path: '/oGythE98MYleE6mZlGs5oBGkux1.jpg',
+            release_date: '2024-06-05',
+            title: 'Bad Boys: Ride or Die',
+            video: false,
+            vote_average: 7.637,
+            vote_count: 1486
+        },
+        {
+            adult: false,
+            backdrop_path: '/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg',
+            genre_ids: [16, 10751, 12, 35],
+            id: 1022789,
+            original_language: 'en',
+            original_title: 'Inside Out 2',
+            overview:
+                "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+            popularity: 3731.653,
+            poster_path: '/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',
+            release_date: '2024-06-11',
+            title: 'Inside Out 2',
+            video: false,
+            vote_average: 7.615,
+            vote_count: 2336
+        },
+        {
+            adult: false,
+            backdrop_path: '/2RVcJbWFmICRDsVxRI8F5xRmRsK.jpg',
+            genre_ids: [27, 878, 53],
+            id: 762441,
+            original_language: 'en',
+            original_title: 'A Quiet Place: Day One',
+            overview:
+                'As New York City is invaded by alien creatures who hunt by sound, a woman named Sam fights to survive with her cat.',
+            popularity: 2983.919,
+            poster_path: '/yrpPYKijwdMHyTGIOd1iK1h0Xno.jpg',
+            release_date: '2024-06-26',
+            title: 'A Quiet Place: Day One',
+            video: false,
+            vote_average: 6.938,
+            vote_count: 1216
+        },
+        {
+            adult: false,
+            backdrop_path: '/5W1sQidR2a9e8O1vk2IDhzbT4W7.jpg',
+            genre_ids: [28, 53],
+            id: 1129598,
+            original_language: 'en',
+            original_title: 'Prey',
+            overview:
+                'A young couple is compelled to leave their Christian missionary station in the Kalahari Desert after being threatened with death by an extremist militant gang. After crashing their aircraft they must battle man and beast for their lives.',
+            popularity: 2502.407,
+            poster_path: '/5wAlO5zZ3IyzLBAf7cp5WejalmG.jpg',
+            release_date: '2024-03-15',
+            title: 'Prey',
+            video: false,
+            vote_average: 6.503,
+            vote_count: 146
+        },
+        {
+            adult: false,
+            backdrop_path: '/r7HV1rKdUus2gJNChswMtpjpPft.jpg',
+            genre_ids: [16, 35, 12, 10751],
+            id: 831815,
+            original_language: 'en',
+            original_title: 'Saving Bikini Bottom: The Sandy Cheeks Movie',
+            overview:
+                'When Bikini Bottom is scooped from the ocean, scientific squirrel Sandy Cheeks and her pal SpongeBob SquarePants saddle up for Texas to save their town.',
+            popularity: 2170.463,
+            poster_path: '/30YnfZdMNIV7noWLdvmcJS0cbnQ.jpg',
+            release_date: '2024-08-01',
+            title: 'Saving Bikini Bottom: The Sandy Cheeks Movie',
+            video: false,
+            vote_average: 6.375,
+            vote_count: 112
+        },
+        {
+            adult: false,
+            backdrop_path: '/8yPSYhooj8nyBbmV3GVdLDwuE7e.jpg',
+            genre_ids: [18, 10749],
+            id: 1079091,
+            original_language: 'en',
+            original_title: 'It Ends with Us',
+            overview:
+                "Lily overcomes a traumatic childhood to embark on a new life. A chance meeting with neurosurgeon Ryle sparks a connection but Lily begins to see sides of him that remind her of her parents' relationship.",
+            popularity: 1351.566,
+            poster_path: '/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg',
+            release_date: '2024-08-07',
+            title: 'It Ends with Us',
+            video: false,
+            vote_average: 7.462,
+            vote_count: 39
+        },
+        {
+            adult: false,
+            backdrop_path: '/tqSg1hHiSWhHAhnjDhhevaFGsP0.jpg',
+            genre_ids: [28, 18],
+            id: 1066262,
+            original_language: 'en',
+            original_title: 'The Convert',
+            overview:
+                'Munro, a soldier turned lay preacher, comes to New Zealand to minister to the first British colonists, but he is converted by the powerful chief Maianui to serve a different purpose.',
+            popularity: 1614.423,
+            poster_path: '/e5ZqqPlhKstzB4geibpZh38w7Pq.jpg',
+            release_date: '2024-03-14',
+            title: 'The Convert',
+            video: false,
+            vote_average: 6.462,
+            vote_count: 39
+        },
+        {
+            adult: false,
+            backdrop_path: '/c3rwwFFVbkyEI6wPtpPd9lvovPW.jpg',
+            genre_ids: [28, 36],
+            id: 1311550,
+            original_language: 'en',
+            original_title: "House of Ga'a",
+            overview:
+                "At the height of the Oyo Empire, the ferocious Bashorun Ga'a became more powerful than the kings he enthroned, only to be undone by his own blood.",
+            popularity: 1509.853,
+            poster_path: '/6yK9hmS641NMwRkR1wWAALWI34t.jpg',
+            release_date: '2024-07-26',
+            title: "House of Ga'a",
+            video: false,
+            vote_average: 5.964,
+            vote_count: 28
+        },
+        {
+            adult: false,
+            backdrop_path: '/1wP1phHo2CROOqzv7Azs0MT5esU.jpg',
+            genre_ids: [16, 35, 10751, 12],
+            id: 748783,
+            original_language: 'en',
+            original_title: 'The Garfield Movie',
+            overview:
+                'Garfield, the world-famous, Monday-hating, lasagna-loving indoor cat, is about to have a wild outdoor adventure! After an unexpected reunion with his long-lost father – scruffy street cat Vic – Garfield and his canine friend Odie are forced from their perfectly pampered life into joining Vic in a hilarious, high-stakes heist.',
+            popularity: 1468.061,
+            poster_path: '/xYduFGuch9OwbCOEUiamml18ZoB.jpg',
+            release_date: '2024-04-30',
+            title: 'The Garfield Movie',
+            video: false,
+            vote_average: 7.207,
+            vote_count: 726
+        },
+        {
+            adult: false,
+            backdrop_path: '/viKEEaaCaZ0hZ2nGuvIEozlLooL.jpg',
+            genre_ids: [27, 80, 9648],
+            id: 1023922,
+            original_language: 'en',
+            original_title: 'MaXXXine',
+            overview:
+                'In 1980s Hollywood, adult film star and aspiring actress Maxine Minx finally gets her big break. But as a mysterious killer stalks the starlets of Hollywood, a trail of blood threatens to reveal her sinister past.',
+            popularity: 1044.896,
+            poster_path: '/ArvoFK6nlouZRxYmtIOUzKIrg90.jpg',
+            release_date: '2024-07-04',
+            title: 'MaXXXine',
+            video: false,
+            vote_average: 6.369,
+            vote_count: 268
+        },
+        {
+            adult: false,
+            backdrop_path: '/fqv8v6AycXKsivp1T5yKtLbGXce.jpg',
+            genre_ids: [878, 12, 28],
+            id: 653346,
+            original_language: 'en',
+            original_title: 'Kingdom of the Planet of the Apes',
+            overview:
+                "Several generations following Caesar's reign, apes – now the dominant species – live harmoniously while humans have been reduced to living in the shadows. As a new tyrannical ape leader builds his empire, one young ape undertakes a harrowing journey that will cause him to question all he's known about the past and to make choices that will define a future for apes and humans alike.",
+            popularity: 1260.064,
+            poster_path: '/gKkl37BQuKTanygYQG1pyYgLVgf.jpg',
+            release_date: '2024-05-08',
+            title: 'Kingdom of the Planet of the Apes',
+            video: false,
+            vote_average: 7.174,
+            vote_count: 2410
+        },
+        {
+            adult: false,
+            backdrop_path: '/wNAhuOZ3Zf84jCIlrcI6JhgmY5q.jpg',
+            genre_ids: [28, 12, 878],
+            id: 786892,
+            original_language: 'en',
+            original_title: 'Furiosa: A Mad Max Saga',
+            overview:
+                'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland they come across the Citadel presided over by The Immortan Joe. While the two Tyrants war for dominance, Furiosa must survive many trials as she puts together the means to find her way home.',
+            popularity: 1203.124,
+            poster_path: '/iADOJ8Zymht2JPMoy3R7xceZprc.jpg',
+            release_date: '2024-05-22',
+            title: 'Furiosa: A Mad Max Saga',
+            video: false,
+            vote_average: 7.622,
+            vote_count: 2560
+        },
+        {
+            adult: false,
+            backdrop_path: '/w22yUH5pAZ3CcTjbw9GEzPd5wxs.jpg',
+            genre_ids: [878, 35],
+            id: 1242372,
+            original_language: 'zh',
+            original_title: '从21世纪安全撤离',
+            overview:
+                'On Planet K, unknown to anyone on Earth, three teenagers chosen by fate can travel back and forth twenty years into the future by sneezing. In the face of a shocking plot to destroy the world, they have nothing but crystal-clear stupidity and single-digit combat power, so how can they transform into heroes and fight against the super-villainous villains who are intent on destroying the world? How can they turn into heroes and fight against the super baddest villains intent on destroying the world? The "King Bomb" brothers, who look like grown-ups but have minds like no other, will save the future on behalf of the K-Star!',
+            popularity: 865.809,
+            poster_path: '/nZQPbD7IEKWiUDK7s9GKHwqP88g.jpg',
+            release_date: '2024-07-18',
+            title: 'Escape from the 21st Century',
+            video: false,
+            vote_average: 7.167,
+            vote_count: 15
+        },
+        {
+            adult: false,
+            backdrop_path: '/s5znBQmprDJJ553IMQfwEVlfroH.jpg',
+            genre_ids: [28, 35, 10752],
+            id: 799583,
+            original_language: 'en',
+            original_title: 'The Ministry of Ungentlemanly Warfare',
+            overview:
+                'During World War II, the British Army assigns a group of competent soldiers to carry out a mission against the Nazi forces behind enemy lines... A true story about a secret British WWII organization – the Special Operations Executive. Founded by Winston Churchill, their irregular warfare against the Germans helped to change the course of the war, and gave birth to modern black operations.',
+            popularity: 1051.456,
+            poster_path: '/8aF0iAKH9MJMYAZdi0Slg77RYa2.jpg',
+            release_date: '2024-04-18',
+            title: 'The Ministry of Ungentlemanly Warfare',
+            video: false,
+            vote_average: 7.164,
+            vote_count: 770
+        },
+        {
+            adult: false,
+            backdrop_path: '/dn3gbDpXPSwC6saMJOHkCiFA9jn.jpg',
+            genre_ids: [14, 12, 10751, 35],
+            id: 974262,
+            original_language: 'en',
+            original_title: 'Descendants: The Rise of Red',
+            overview:
+                "After the Queen of Hearts incites a coup on Auradon, her rebellious daughter Red and Cinderella's perfectionist daughter Chloe join forces and travel back in time to try to undo the traumatic event that set Red's mother down her villainous path.",
+            popularity: 920.52,
+            poster_path: '/t9u9FWpKlZcp0Wz1qPeV5AIzDsk.jpg',
+            release_date: '2024-07-11',
+            title: 'Descendants: The Rise of Red',
+            video: false,
+            vote_average: 7,
+            vote_count: 235
+        },
+        {
+            adult: false,
+            backdrop_path: '/dsGwCEO8tda4FlgHKvL95f0oQbH.jpg',
+            genre_ids: [16, 878, 28],
+            id: 1209290,
+            original_language: 'en',
+            original_title: 'Justice League: Crisis on Infinite Earths Part Three',
+            overview:
+                'Now fully revealed as the ultimate threat to existence, the Anti-Monitor wages an unrelenting attack on the surviving Earths that struggle for survival in a pocket universe. One by one, these worlds and all their inhabitants are vaporized! On the planets that remain, even time itself is shattered, and heroes from the past join the Justice League and their rag-tag allies against the epitome of evil. But as they make their last stand, will the sacrifice of the superheroes be enough to save us all?',
+            popularity: 973.987,
+            poster_path: '/a3q8NkM8uTh9E23VsbUOdDSbBeN.jpg',
+            release_date: '2024-07-16',
+            title: 'Justice League: Crisis on Infinite Earths Part Three',
+            video: false,
+            vote_average: 7.49,
+            vote_count: 143
+        },
+        {
+            adult: false,
+            backdrop_path: '/6Vbm2nHxHMlZZ199fmZtMytpFvK.jpg',
+            genre_ids: [28, 53, 35, 18],
+            id: 1309923,
+            original_language: 'es',
+            original_title: 'No negociable',
+            overview:
+                'Hostage negotiator Alan Bender is called to rescue the president from a kidnapping, only to find himself also mediating to save his wife and marriage.',
+            popularity: 923.443,
+            poster_path: '/bHQG4UsLMFCy91gfLAFRpnCOPdP.jpg',
+            release_date: '2024-07-25',
+            title: 'Non Negotiable',
+            video: false,
+            vote_average: 5.85,
+            vote_count: 60
+        },
+        {
+            adult: false,
+            backdrop_path: '/e6FWExcyn1rxcfYSOrApm94Rga0.jpg',
+            genre_ids: [27, 53],
+            id: 1175038,
+            original_language: 'en',
+            original_title: 'Stranger in the Woods',
+            overview:
+                "Olivia and her friends go on a vacation. After Olivia nearly drowns with a slit wrist in her bathtub after her fiancé's funeral, her friends suspect that she tried to kill herself, but she believes someone attacked her.",
+            popularity: 805.382,
+            poster_path: '/qcrbiVMOkAaOyha8BqyVDQCTwh6.jpg',
+            release_date: '2024-02-14',
+            title: 'Stranger in the Woods',
+            video: false,
+            vote_average: 6.493,
+            vote_count: 71
+        }
+    ],
+    total_pages: 45504,
+    total_results: 910073,
+    category: ''
+}

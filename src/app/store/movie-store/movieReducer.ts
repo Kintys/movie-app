@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store'
 import { initialState } from './movieState'
 import {
+    addFilterValue,
+    addSortValue,
     addToFavouriteListFailure,
     addToFavouriteListSuccess,
     addToWatchListFailure,
@@ -9,34 +11,34 @@ import {
     deleteMovieFromFavouriteListSuccess,
     deleteMovieFromWatchListFailure,
     deleteMovieFromWatchListSuccess,
-    deleteSuccessStatus,
+    deleteMovieStatus,
     loadAllMoviesSuccess,
     loadFavouriteListFailure,
     loadFavouriteListSuccess,
     loadMovieID,
-    loadMoviesListWithCatFailure,
-    loadMoviesListWithCatSuccess,
-    loadWatchList,
+    loadMoviesListWithCat,
+    // loadMoviesListWithCatFailure,
+    // loadMoviesListWithCatSuccess,
     loadWatchListFailure,
     loadWatchListSuccess
 } from './movieActions'
-import { Movie } from '@/app/movie-data/type-declorate'
+import { Movie, MoviePage } from '@/app/shared/type-declorate'
 export const MovieReducer = createReducer(
     initialState,
     // movie list
-    on(loadMoviesListWithCatSuccess, (state, { movies }) => {
+    on(loadMoviesListWithCat, (state, { category }) => {
         return {
             ...state,
-            moviesListWithCat: getCopyItem(movies)
+            selectCategory: category
         }
     }),
 
-    on(loadMoviesListWithCatFailure, (state, { error }) => {
-        return {
-            ...state,
-            error: error
-        }
-    }),
+    // on(loadMoviesListWithCatFailure, (state, { error }) => {
+    //     return {
+    //         ...state,
+    //         error: error
+    //     }
+    // }),
     on(loadMovieID, (state, { movieId }) => {
         return {
             ...state,
@@ -44,19 +46,23 @@ export const MovieReducer = createReducer(
         }
     }),
     // all movie list
-    on(loadAllMoviesSuccess, (state, { movies }) => {
-        let moviesArr: Movie[] = []
+    on(loadAllMoviesSuccess, (state, { movies, movieGenre }) => {
+        let updatedMovies: MoviePage[]
         if (movies) {
-            movies.forEach((movie) => {
-                moviesArr.push(...movie.results)
+            updatedMovies = movies?.map((movieList, index) => {
+                const categoryKey = Object.keys(state.categoryMovies)[index]
+                const category = state.categoryMovies[categoryKey]
+                return {
+                    ...movieList,
+                    category: category
+                }
             })
-            // фільтрація масиву для уникнення повторення фільму
-            // незрозуміло чому не працює new Set
-            moviesArr = moviesArr.filter((movie, index, arr) => index === arr.findIndex((m) => m.id === movie.id))
-        }
+        } else updatedMovies = []
+
         return {
             ...state,
-            allMoviesList: moviesArr
+            allMoviesList: updatedMovies,
+            movieGenre: movieGenre
         }
     }),
     // favourite List
@@ -72,10 +78,9 @@ export const MovieReducer = createReducer(
             error: error
         }
     }),
-    on(addToFavouriteListSuccess, (state, { success }) => {
+    on(addToFavouriteListSuccess, (state) => {
         return {
-            ...state,
-            success: success
+            ...state
         }
     }),
     on(addToFavouriteListFailure, (state, { error }) => {
@@ -84,10 +89,9 @@ export const MovieReducer = createReducer(
             error: error
         }
     }),
-    on(deleteMovieFromFavouriteListSuccess, (state, { success }) => {
+    on(deleteMovieFromFavouriteListSuccess, (state) => {
         return {
-            ...state,
-            success: success
+            ...state
         }
     }),
     on(deleteMovieFromFavouriteListFailure, (state, { error }) => {
@@ -109,10 +113,9 @@ export const MovieReducer = createReducer(
             error: error
         }
     }),
-    on(addToWatchListSuccess, (state, { success }) => {
+    on(addToWatchListSuccess, (state) => {
         return {
-            ...state,
-            success: success
+            ...state
         }
     }),
     on(addToWatchListFailure, (state, { error }) => {
@@ -121,10 +124,9 @@ export const MovieReducer = createReducer(
             error: error
         }
     }),
-    on(deleteMovieFromWatchListSuccess, (state, { success }) => {
+    on(deleteMovieFromWatchListSuccess, (state) => {
         return {
-            ...state,
-            success: success
+            ...state
         }
     }),
     on(deleteMovieFromWatchListFailure, (state, { error }) => {
@@ -134,10 +136,23 @@ export const MovieReducer = createReducer(
         }
     }),
     //success status
-    on(deleteSuccessStatus, (state) => {
+    on(deleteMovieStatus, (state) => {
         return {
             ...state,
-            success: ''
+            error: null,
+            success: null
+        }
+    }),
+    on(addFilterValue, (state, { filterValue }) => {
+        return {
+            ...state,
+            filterValue: filterValue
+        }
+    }),
+    on(addSortValue, (state, { sortValue }) => {
+        return {
+            ...state,
+            sortValue: sortValue
         }
     })
 )
@@ -145,3 +160,5 @@ export const MovieReducer = createReducer(
 function getCopyItem(val: any) {
     return JSON.parse(JSON.stringify(val))
 }
+
+export { initialState }

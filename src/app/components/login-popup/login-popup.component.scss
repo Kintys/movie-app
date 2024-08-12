@@ -1,0 +1,107 @@
+@import "@asset/scss/function.scss";
+.login-form {
+    position: relative;
+    &__body {
+        display: grid;
+        justify-items: center;
+    }
+    &__inputs {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(5);
+        &:not(:last-child) {
+            margin-bottom: toRem(5);
+        }
+        min-height: toRem(90);
+    }
+    // .login-form__label
+
+    &__label {
+        text-transform: capitalize;
+        color: white;
+    }
+
+    // .login-form__username
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(10);
+    }
+    &__error {
+        position: absolute;
+        bottom: toRem(8);
+        left: 0;
+        color: rgba(255, 0, 0, 0.941);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        &--show {
+            opacity: 1;
+            visibility: visible;
+            bottom: toRem(5);
+        }
+    }
+
+    &__sing-up {
+        position: absolute;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background: #20262e;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        &--show {
+            right: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    ::ng-deep {
+        .p-button {
+            width: 100%;
+        }
+        .pi-google {
+            color: red;
+        }
+        .pi-envelope {
+            color: blue;
+        }
+        .p-button-label {
+            color: white;
+            @media (any-hover: hover) {
+                &:hover {
+                    color: rgb(38, 196, 151);
+                }
+            }
+        }
+    }
+}
+.button {
+    border: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    @media (any-hover: hover) {
+        &:hover {
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 150%;
+                background: #00000036;
+                border-radius: 50%;
+            }
+        }
+    }
+}

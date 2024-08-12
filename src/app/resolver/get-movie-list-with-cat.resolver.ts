@@ -4,7 +4,7 @@ import { inject } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { map, tap } from 'rxjs'
 import { loadMoviesListWithCat } from '../store/movie-store/movieActions'
-import { CategoryMovies } from '../movie-data/type-declorate'
+import { CategoryMovies } from '../shared/type-declorate'
 
 export const getMovieLIstWithCat: ResolveFn<boolean> = (route) => {
     const store = inject(Store)

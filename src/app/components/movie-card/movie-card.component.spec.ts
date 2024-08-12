@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button'
 import { RouterLink } from '@angular/router'
 import { TooltipModule } from 'primeng/tooltip'
 import { addToFavouriteList, addToWatchList } from '@/app/store/movie-store/movieActions'
-import { movieMock } from '@/app/movie-data/mock-data'
+import { movieMock } from '@/app/shared/mock-data'
 import { ActivatedRoute } from '@angular/router'
 import { of } from 'rxjs'
 

@@ -7,4 +7,14 @@ export const selectSessionId = createSelector(selectUser, (state) => state.sessi
 
 export const selectAccountId = createSelector(selectUser, (state) => state.accountId)
 
-export const selectUserName = createSelector(selectUser, (state) => state.user)
+export const selectUserName = createSelector(selectUser, (state) =>
+    state.userApiName && state.userEmail ? true : false
+)
+export const selectLoginPopup = createSelector(selectUser, (state) => state.loginPopup)
+export const selectSubscribePopup = createSelector(selectUser, (state) => state.subscribePopup)
+export const selectUserStatus = createSelector(selectUser, (state) => {
+    return {
+        success: state.success,
+        error: state.error
+    }
+})

@@ -1,18 +1,25 @@
-import { CategoryMovies, Movie } from '@/app/movie-data/type-declorate'
+import { CategoryMovies, Genre, Movie, MoviePage } from '@/app/shared/type-declorate'
 
 export interface MovieState {
     moviesListWithCat: Movie[] | null
-    allMoviesList: Movie[] | null
+    allMoviesList: MoviePage[] | null
+    movieGenre: Genre[] | null
     favouriteList: Movie[] | null
     watchList: Movie[] | null
     categoryMovies: CategoryMovies
+    filterValue: any[] | null
+    sortValue: string | null
     movieId?: number | string | null
-    success?: string
-    error?: any
+    error?: string | null
+    success?: string | null
+    selectCategory?: string
 }
 export const initialState: MovieState = {
     moviesListWithCat: null,
     allMoviesList: null,
+    movieGenre: null,
+    filterValue: null,
+    sortValue: null,
     favouriteList: null,
     watchList: null,
     categoryMovies: {

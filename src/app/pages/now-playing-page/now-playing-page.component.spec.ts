@@ -6,7 +6,7 @@ import { MovieCardComponent } from '@/app/components/movie-card/movie-card.compo
 import { ActivatedRoute } from '@angular/router'
 import { AsyncPipe } from '@angular/common'
 import { By } from '@angular/platform-browser'
-import { movieMock } from '@/app/movie-data/mock-data'
+import { movieMock } from '@/app/shared/mock-data'
 
 describe('NowPlayingPageComponent', () => {
     let component: NowPlayingPageComponent

@@ -9,7 +9,7 @@ import { PrefixUrlPipe } from '@/app/pipes/prefix-url/prefix-url.pipe'
 import { PanelModule } from 'primeng/panel'
 import { FormsModule } from '@angular/forms'
 import { AsyncPipe } from '@angular/common'
-import { movieMock } from '@/app/movie-data/mock-data'
+import { movieMock } from '@/app/shared/mock-data'
 
 describe('DetailsMoviePageComponent', () => {
     let component: DetailsMoviePageComponent

@@ -1,0 +1,22 @@
+<div class="filter-panel">
+    <h3 class="filter-panel__title">Filter Option</h3>
+    <div class="filter-panel__body">
+        <div class="filter-panel__search-bar"><p-iconField iconPosition="right">
+                <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Search" [formControl]="inputCheck" />
+            </p-iconField>
+            <small class="filter-panel__error" [ngClass]="{'filter-panel__error--show': isShowError}">
+                {{inputErrorText}}
+            </small>
+        </div>
+        <div class="filter-panel__chackbox-panel">
+            @if(selectedMovieGenre$ | async; as genreCategory){
+            @for (category of genreCategory; track category.id) {
+            <p-checkbox [(ngModel)]="chosenGenreCheckboxArr" [label]="category.name" name="group" [value]="category.id" (ngModelChange)="onCategoryChange($event)" />
+            }
+            }
+        </div>
+        <button pButton label="Clear Filter" class="p-button-group" (click)="clearFilter()">
+        </button>
+    </div>
+</div>

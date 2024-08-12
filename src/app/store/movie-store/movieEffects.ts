@@ -1,10 +1,10 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Injectable } from '@angular/core'
-import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators'
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators'
 import {
     loadMoviesListWithCat,
-    loadMoviesListWithCatSuccess,
-    loadMoviesListWithCatFailure,
+    // loadMoviesListWithCatSuccess,
+    // loadMoviesListWithCatFailure,
     loadAllMovies,
     loadAllMoviesSuccess,
     loadAllMoviesFailure,
@@ -27,40 +27,44 @@ import {
     deleteMovieFromWatchListSuccess,
     deleteMovieFromWatchListFailure
 } from '@/app/store/movie-store/movieActions'
-import { of } from 'rxjs'
+import { forkJoin, of } from 'rxjs'
 import { MovieAPIService } from '@/app/services/movie-api.service'
 
 @Injectable()
 export class MovieEffects {
-    loadMoviesListWithCat$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(loadMoviesListWithCat),
-            mergeMap((props) => {
-                return this.movieAPIservices.getMovieListWitCat(props.category).pipe(
-                    map((movies) =>
-                        loadMoviesListWithCatSuccess({
-                            movies: movies.results
-                        })
-                    ),
-                    catchError((error) =>
-                        of(
-                            loadMoviesListWithCatFailure({
-                                error: error
-                            })
-                        )
-                    )
-                )
-            })
-        )
-    )
+    // loadMoviesListWithCat$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(loadMoviesListWithCat),
+    //         mergeMap((props) => {
+    //             return this.movieAPIservices.getMovieListWitCat(props.category).pipe(
+    //                 map((movies) =>
+    //                     loadMoviesListWithCatSuccess({
+    //                         movies: movies.results
+    //                     })
+    //                 ),
+    //                 catchError((error) =>
+    //                     of(
+    //                         loadMoviesListWithCatFailure({
+    //                             error: error
+    //                         })
+    //                     )
+    //                 )
+    //             )
+    //         })
+    //     )
+    // )
     loadAllMovies$ = createEffect(() =>
         this.actions$.pipe(
             ofType(loadAllMovies),
-            mergeMap((props) => {
-                return this.movieAPIservices.getAllMovies(props.categoryObj).pipe(
-                    map((movies) =>
+            switchMap((props) =>
+                forkJoin([
+                    this.movieAPIservices.getAllMovies(props.categoryObj),
+                    this.movieAPIservices.getMovieGenre()
+                ]).pipe(
+                    map(([movies, genre]) =>
                         loadAllMoviesSuccess({
-                            movies: movies
+                            movies: movies,
+                            movieGenre: genre.genres
                         })
                     ),
                     catchError((error) =>
@@ -71,7 +75,7 @@ export class MovieEffects {
                         )
                     )
                 )
-            })
+            )
         )
     )
     loadFavouriteList$ = createEffect(() =>
@@ -100,11 +104,7 @@ export class MovieEffects {
             ofType(addToFavouriteList),
             mergeMap((props) => {
                 return this.movieAPIservices.setItemToFavouriteList(props.movieId).pipe(
-                    map(() =>
-                        addToFavouriteListSuccess({
-                            success: 'Success! Movie add to your favourite list'
-                        })
-                    ),
+                    map(() => addToFavouriteListSuccess()),
                     catchError((error) =>
                         of(
                             addToFavouriteListFailure({
@@ -121,12 +121,7 @@ export class MovieEffects {
             ofType(deleteMovieFromFavouriteList),
             mergeMap((props) => {
                 return this.movieAPIservices.deleteItemFromFavouriteList(props.movieId).pipe(
-                    switchMap(() => [
-                        deleteMovieFromFavouriteListSuccess({
-                            success: 'Success! Movie delete from favourite list'
-                        }),
-                        loadFavouriteList()
-                    ]),
+                    switchMap(() => [deleteMovieFromFavouriteListSuccess(), loadFavouriteList()]),
                     catchError((error) =>
                         of(
                             deleteMovieFromFavouriteListFailure({
@@ -164,11 +159,7 @@ export class MovieEffects {
             ofType(addToWatchList),
             mergeMap((props) => {
                 return this.movieAPIservices.setItemToWatchList(props.movieId).pipe(
-                    map(() =>
-                        addToWatchListSuccess({
-                            success: 'Success! Movie add to your watch list'
-                        })
-                    ),
+                    map(() => addToWatchListSuccess()),
                     catchError((error) =>
                         of(
                             addToWatchListFailure({
@@ -185,12 +176,7 @@ export class MovieEffects {
             ofType(deleteMovieFromWatchList),
             mergeMap((props) => {
                 return this.movieAPIservices.deleteItemFromWatchList(props.movieId).pipe(
-                    switchMap(() => [
-                        deleteMovieFromWatchListSuccess({
-                            success: 'Success! Movie delete from watch list'
-                        }),
-                        loadWatchList()
-                    ]),
+                    switchMap(() => [deleteMovieFromWatchListSuccess(), loadWatchList()]),
                     catchError((error) =>
                         of(
                             deleteMovieFromWatchListFailure({
@@ -202,6 +188,7 @@ export class MovieEffects {
             })
         )
     )
+    loadMoviesListWithCat$: any
 
     constructor(private actions$: Actions, private movieAPIservices: MovieAPIService) {}
 }

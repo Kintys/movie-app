@@ -1,14 +1,22 @@
 export interface User {
-    user?: string | null
+    userApiName?: string | null
+    displayName?: string | null
+    userEmail?: string | null
+    userPhoto?: string | null
     accountId: string | null
     sessionId: string | null
-    error?: any
-    success: boolean | string
+    loginPopup: boolean
+    subscribePopup: boolean
+    error?: string | null
+    success?: string | null
 }
 export const userState: User = {
+    userApiName: null,
+    displayName: null,
+    userEmail: null,
+    userPhoto: null,
     accountId: null,
-    user: null,
     sessionId: null,
-    success: false,
-    error: null
+    loginPopup: false,
+    subscribePopup: false
 }

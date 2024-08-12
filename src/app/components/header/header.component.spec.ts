@@ -49,7 +49,7 @@ describe('HeaderComponent', () => {
 
     it('should initialize links on ngOnInit', () => {
         component.ngOnInit()
-        expect(component.links?.length).toBe(2)
+        expect(component.links?.length).toBe(3)
         expect(component.links).toEqual([
             {
                 id: 'mock-uuid',
@@ -62,6 +62,12 @@ describe('HeaderComponent', () => {
                 path: 'watch',
                 name: 'watch list',
                 icon: 'pi pi-eye'
+            },
+            {
+                id: 'mock-uuid',
+                path: 'catalog',
+                name: 'movie catalog',
+                icon: 'pi pi-video'
             }
         ])
     })
@@ -73,7 +79,7 @@ describe('HeaderComponent', () => {
         component.onSignOut()
 
         expect(dispatchSpy).toHaveBeenCalledWith(deleteUserAndAccId())
-        expect(navigateSpy).toHaveBeenCalledWith(['/auth'])
+        expect(navigateSpy).toHaveBeenCalledWith(['/welcome'])
     })
 
     it('should have the correct logo title', () => {

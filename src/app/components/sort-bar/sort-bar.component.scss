@@ -1,0 +1,13 @@
+@import "@asset/scss/function.scss";
+.sort-bar {
+    // .sort-bar__label
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &__label {
+        font-size: toRem(24);
+        font-weight: 600;
+        margin-right: toRem(10);
+    }
+}

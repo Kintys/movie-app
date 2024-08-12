@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { loadMovieID } from '../store/movie-store/movieActions'
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 import { getMovieById } from './get-movie-by-id.resolver'
-import { movieMock } from '../movie-data/mock-data'
+import { movieMock } from '../shared/mock-data'
 describe('getMovieById', () => {
     let store: MockStore
     const initialState = {}
