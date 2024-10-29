@@ -1,0 +1,38 @@
+<div class="login-form">
+    <form [formGroup]="logForm" (ngSubmit)="onSubmit()">
+        <p-dialog [modal]="true" header="Log in" (visibleChange)="closeDialog($event)" [(visible)]="isVisiblePopup" [style]="{ width: '25rem' , height: '27rem', overflow: 'hidden' }">
+            <ng-template pTemplate="closeicon">
+                <button class="button"><i class="pi pi-times"></i></button>
+            </ng-template>
+            <div class="login-form__body">
+                <div class="login-form__inputs">
+                    <label for="username" class="login-form__label">{{generalComponentText?.email?.label}}</label>
+                    <p-iconField iconPosition="left" class="login-form__username">
+                        <p-inputIcon styleClass="pi pi-user" />
+                        <input pInputText id="username" type="email" formControlName="email" autocomplete="on" />
+                    </p-iconField>
+                    <small class="login-form__error" [ngClass]="{'login-form__error--show': isErrorEmailShow}">
+                        {{emailErrorText}}
+                    </small>
+                </div>
+                <div class="login-form__inputs">
+                    <label for="password" class="login-form__label">{{generalComponentText?.password?.label}}</label>
+                    <p-iconField iconPosition="left" class="login-form__password">
+                        <p-inputIcon styleClass="pi pi-key" />
+                        <input pInputText id="password" class="login-form__password" formControlName="password" autocomplete="off" type="password" />
+                    </p-iconField>
+                    <small class="login-form__error" [ngClass]="{'login-form__error--show': isErrorPassShow}">
+                        {{passwordErrorText}}
+                    </small>
+                </div>
+                <div class="login-form__actions">
+                    <p-button icon="pi pi-envelope" type="submit" label="Login with Email"></p-button>
+                    <p-button icon="pi pi-google" label="Log in With Google" (onClick)="loginWithGoogleAcc()"></p-button>
+                    <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem" (onClick)="showSingUp()" />
+                </div>
+            </div>
+            <app-sing-up class="login-form__sing-up" [ngClass]="{'login-form__sing-up--show': isVisibleSingUp}" (isCloseSingUpPopup)="isVisibleSingUp = false"></app-sing-up>
+        </p-dialog>
+    </form>
+
+</div>

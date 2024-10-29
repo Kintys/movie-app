@@ -1,0 +1,40 @@
+<form [formGroup]="singUpForm" (ngSubmit)="onSubmit()">
+    <div class="sing-up__body">
+        <div class="sing-up__inputs inputs">
+            <div class="inputs__wrapper">
+                <label class="inputs__label">{{generalComponentText?.email?.label}}</label>
+                <input pInputText id="username" aria-describedby="email-help" type="email" formControlName="email" autocomplete="on" />
+                <small id="email-help" class="inputs__error" [ngClass]="{'inputs__error--show': isErrorClassEmailShow}">
+                    {{emailInvalidMassage}}
+                </small>
+            </div>
+            <div class="inputs__wrapper password">
+                <label class="inputs__label">{{generalComponentText?.password?.label}}</label>
+                <p-password [toggleMask]="true" formControlName="password">
+                    <ng-template pTemplate="footer">
+                        <p class="password__label">Suggestions</p>
+                        <ul class="password__list">
+                            @for (itemList of generalComponentText?.password?.tooltipText?.list; track itemList) {
+                            <li>{{itemList}}</li>
+                            }
+                        </ul>
+                    </ng-template>
+                </p-password>
+                <small id="email-help" class="inputs__error" [ngClass]="{'inputs__error--show': isErrorClassPassShow}">
+                    {{passwordInvalidMassage}}
+                </small>
+            </div>
+            <div class="inputs__wrapper">
+                <label class="inputs__label">{{generalComponentText?.repeatPassword?.label}}</label>
+                <p-password [toggleMask]="true" [feedback]="false" formControlName="repeatPassword" />
+                <small id="username-help" class="inputs__error" [ngClass]="{'inputs__error--show': isErrorClassRepeatPasswordShow}">
+                    {{repeatPasswordInvalidMassage}}
+                </small>
+            </div>
+        </div>
+        <div class="sing-up__actions">
+            <p-button icon="pi pi-user-plus" label="Sing Up" class="sing-up__button" type="submit"></p-button>
+            <p-button icon="pi pi-caret-left" label="Back to Log In" class="sing-up__button" (onClick)="closeSingUpPopup()"></p-button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,134 @@
+@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+  color: inherit;
+  background-color: inherit;
+}
+
+body {
+  line-height: 1;
+}
+
+[class*=__container] {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 0.9375rem;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.show-more,
+.show-less {
+  transition: all 0.3s;
+  color: var(--surface-800);
+  cursor: pointer;
+}
+.show-more:hover,
+.show-less:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 1.25rem;
+       column-gap: 1.25rem;
+}
+.logo__name {
+  font-weight: 900;
+}
+
+.hover-link {
+  position: relative;
+}
+.hover-link::after, .hover-link::before {
+  content: "";
+  width: 0;
+  height: 0.0625rem;
+  background: #666;
+  position: absolute;
+  bottom: -0.25rem;
+  transition: all 0.3s;
+}
+.hover-link::after {
+  left: 50%;
+}
+.hover-link::before {
+  right: 50%;
+}
+.hover-link:hover::after, .hover-link:hover::before {
+  width: 50%;
+}
+
+.hover {
+  transition: all 0.4s;
+}
+.hover:hover {
+  color: #f79d00;
+}
+
+.cards {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  display: grid;
+  display: grid;
+  gap: 1.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(13.75rem, 15.625rem));
+}/*# sourceMappingURL=styles.css.map */

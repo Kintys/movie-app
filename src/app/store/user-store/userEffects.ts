@@ -1,62 +1,109 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Injectable } from '@angular/core'
-import { catchError, map, mergeMap } from 'rxjs/operators'
-import { of } from 'rxjs'
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators'
+import { forkJoin, of } from 'rxjs'
 import { AuthenticationService } from '@/app/services/authentication.service'
 import {
-    loadAccountId,
-    loadAccountIdFailure,
-    loadAccountIdSuccess,
-    loadSessionId,
-    loadSessionIdFailure,
-    loadSessionIdSuccess
+    loginWithGoogle,
+    loadAccountSuccess,
+    loadAccountFailure,
+    loginWithEmailAndPass,
+    loadAccountWithPassAndEmailSuccess,
+    loadAccountWithPassAndEmailFailure,
+    createAccountWithPassAndEmail,
+    createAccountWithPassAndEmailSuccess,
+    createAccountWithPassAndEmailFailure,
+    sendSubscribeEmail,
+    sendSubscribeEmailSuccess,
+    sendSubscribeEmailFailure
 } from './userActions'
+import { SubscribeEmailService } from '@/app/services/subscribe-email.service'
 
 @Injectable()
 export class UserEffect {
-    loadSessionId$ = createEffect(() =>
+    loginWithGoogle$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(loadSessionId),
-            mergeMap(() => {
-                return this.authenticationAPI.createNewSession().pipe(
-                    map((session) =>
-                        loadSessionIdSuccess({
-                            sessionId: session.session_id
+            ofType(loginWithGoogle),
+            switchMap(() =>
+                forkJoin([this.authenticationAPI.singInWithGoogle(), this.authenticationAPI.createNewSession()]).pipe(
+                    map(([userCredentialImp, apiUserObj]) =>
+                        loadAccountSuccess({
+                            accountId: apiUserObj.accountInfo.id,
+                            userApiName: apiUserObj.accountInfo.username,
+                            displayName: userCredentialImp.user.displayName,
+                            userEmail: userCredentialImp.user.email,
+                            userPhoto: userCredentialImp.user.photoURL,
+                            sessionId: apiUserObj.sessionId,
+                            loginPopup: false,
+                            success: `Welcome `
                         })
                     ),
-                    catchError((error) =>
-                        of(
-                            loadSessionIdFailure({
-                                error: error
-                            })
-                        )
-                    )
+                    catchError((error) => of(loadAccountFailure({ error: error })))
                 )
-            })
+            )
         )
     )
-    loadAccountId$ = createEffect(() =>
+    loginWithEmailAndPass$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(loadAccountId),
+            ofType(loginWithEmailAndPass),
+            switchMap((props) =>
+                forkJoin([
+                    this.authenticationAPI.logIn(props.email, props.password),
+                    this.authenticationAPI.createNewSession()
+                ]).pipe(
+                    map(([userCredentialImp, apiUserObj]) => {
+                        console.log(userCredentialImp)
+                        return loadAccountWithPassAndEmailSuccess({
+                            accountId: apiUserObj.accountInfo.id,
+                            userApiName: apiUserObj.accountInfo.username,
+                            userEmail: userCredentialImp.user.email,
+                            sessionId: apiUserObj.sessionId,
+                            loginPopup: false,
+                            success: `Welcome`
+                        })
+                    }),
+                    catchError((error) => of(loadAccountWithPassAndEmailFailure({ error: error })))
+                )
+            )
+        )
+    )
+    createAccountWithPassAndEmail$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(createAccountWithPassAndEmail),
+            switchMap((props) =>
+                forkJoin([
+                    this.authenticationAPI.createNewUser(props.email, props.password),
+                    this.authenticationAPI.createNewSession()
+                ]).pipe(
+                    map(([userCredentialImp, apiUserObj]) =>
+                        createAccountWithPassAndEmailSuccess({
+                            accountId: apiUserObj.accountInfo.id,
+                            userApiName: apiUserObj.accountInfo.username,
+                            userEmail: userCredentialImp.user.email,
+                            sessionId: apiUserObj.sessionId,
+                            loginPopup: false,
+                            success: `Welcome`
+                        })
+                    ),
+                    catchError((error) => of(createAccountWithPassAndEmailFailure({ error: error })))
+                )
+            )
+        )
+    )
+    sendSubscribeEmail$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(sendSubscribeEmail),
             mergeMap((props) => {
-                return this.authenticationAPI.getAccountDetails(props.sessionId).pipe(
-                    map((account) =>
-                        loadAccountIdSuccess({
-                            accountId: account.id,
-                            user: account.username,
-                            success: 'Welcome!'
-                        })
-                    ),
-                    catchError((error) =>
-                        of(
-                            loadAccountIdFailure({
-                                error: error
-                            })
-                        )
-                    )
+                return this.emailService.sendEmail(props.templateForm).pipe(
+                    map((msg) => sendSubscribeEmailSuccess({ success: msg })),
+                    catchError((error) => of(sendSubscribeEmailFailure({ error })))
                 )
             })
         )
     )
-    constructor(private actions$: Actions, private authenticationAPI: AuthenticationService) {}
+    constructor(
+        private actions$: Actions,
+        private authenticationAPI: AuthenticationService,
+        private emailService: SubscribeEmailService
+    ) {}
 }

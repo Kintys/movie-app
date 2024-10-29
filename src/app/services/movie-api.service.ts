@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { CategoryMovies, Movie, MoviePage } from '../movie-data/type-declorate'
-import { Observable, combineLatest, map, tap } from 'rxjs'
+import { CategoryMovies, GenreModule, Movie, MoviePage } from '../shared/type-declorate'
+import { Observable, combineLatest } from 'rxjs'
 import { environment } from '@/environments/environment.development'
-import { FavouriteAndWatchDataService } from './favourite-and-watch-data.service'
 import { Store } from '@ngrx/store'
 import { selectAccountId, selectSessionId } from '../store/user-store/userSelectors'
 @Injectable({
@@ -18,11 +17,7 @@ export class MovieAPIService {
         'content-type': 'application/json',
         Authorization: this.apiToken
     }
-    constructor(
-        private http: HttpClient,
-        private favouriteWatchServices: FavouriteAndWatchDataService,
-        private store: Store
-    ) {}
+    constructor(private http: HttpClient, private store: Store) {}
 
     private get accountId() {
         let accountId
@@ -61,6 +56,11 @@ export class MovieAPIService {
                 headers: this.headers
             }
         )
+    }
+    public getMovieGenre() {
+        return this.http.get<GenreModule>(`${this.apiUrl}genre/movie/list?language=en`, {
+            headers: this.headers
+        })
     }
     public setItemToFavouriteList(id: number | string) {
         return this.http.post<Movie>(

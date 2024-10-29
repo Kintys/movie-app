@@ -14,52 +14,51 @@ export const routes: Routes = [
     },
     {
         path: 'welcome',
-        canActivate: [authGuard],
         resolve: [getAllMoviesResolver],
         component: WelcomePageComponent
     },
     {
         path: '',
         component: HomePageComponent,
+        canActivate: [authGuard],
         children: [
             {
                 path: 'nowPlaying',
-                canActivate: [authGuard],
                 resolve: [getMovieLIstWithCat],
                 loadComponent: () =>
                     import('./pages/now-playing-page/now-playing-page.component').then((m) => m.NowPlayingPageComponent)
             },
             {
                 path: 'popular',
-                canActivate: [authGuard],
                 resolve: [getMovieLIstWithCat],
                 loadComponent: () =>
                     import('./pages/popular-page/popular-page.component').then((m) => m.PopularPageComponent)
             },
             {
                 path: 'topRate',
-                canActivate: [authGuard],
                 resolve: [getMovieLIstWithCat],
                 loadComponent: () =>
                     import('./pages/top-rate-page/top-rate-page.component').then((m) => m.TopRatePageComponent)
             },
             {
                 path: 'upcoming',
-                canActivate: [authGuard],
                 resolve: [getMovieLIstWithCat],
                 loadComponent: () =>
                     import('./pages/upcoming-page/upcoming-page.component').then((m) => m.UpcomingPageComponent)
             },
             {
+                path: 'catalog',
+                loadComponent: () =>
+                    import('./pages/category-page/category-page.component').then((m) => m.CategoryPageComponent)
+            },
+            {
                 path: 'favourite',
-                canActivate: [authGuard],
                 resolve: [getFavWatchListResolver],
                 loadComponent: () =>
                     import('./pages/favourite-page/favourite-page.component').then((m) => m.FavouritePageComponent)
             },
             {
                 path: 'watch',
-                canActivate: [authGuard],
                 resolve: [getFavWatchListResolver],
                 loadComponent: () => import('./pages/watch-page/watch-page.component').then((m) => m.WatchPageComponent)
             }
@@ -74,11 +73,6 @@ export const routes: Routes = [
         },
         loadComponent: () =>
             import('./pages/details-movie-page/details-movie-page.component').then((m) => m.DetailsMoviePageComponent)
-    },
-    {
-        path: 'auth',
-        loadComponent: () =>
-            import('./components/authentication/authentication.component').then((m) => m.AuthenticationComponent)
     },
     {
         path: '**',

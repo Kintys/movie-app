@@ -1,13 +1,33 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AngularProject</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+
+  <head>
+    <meta charset="utf-8">
+    <title>AngularProject</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+
+  <body>
+    <script>
+      const arr = [[-12, 33, -45], 20, [[-3, 5, 3, [3, -8, 10, [1]]], -35, 19], -8, [50], 27, [-50, 14], -32, [7, -13], 46]
+
+      function getPositiveAndNegativeNumber(arr, posCount = 0, negCount = 0) {
+        let positive = posCount
+        let negative = negCount
+        for (const item of arr) {
+          if (Array.isArray(item)) [positive, negative] = getPositiveAndNegativeNumber(item, positive, negative)
+          else {
+            if (item > 0) positive++
+            if (item < 0) negative++
+          }
+        }
+        return [positive, negative]
+      }
+      console.log(getPositiveAndNegativeNumber(arr))
+    </script>
+    <app-root></app-root>
+  </body>
+
 </html>

@@ -1,0 +1,20 @@
+<section class="category">
+    <div class="category__container">
+        <aside class="category__filter"> <app-filter-panel (searchText)="addSearchText($event)"></app-filter-panel></aside>
+        <article class="category__body movie-box">
+            <div class="movie-box__headline">
+                <h3 class="movie-box__title">Movie list</h3>
+                <app-sort-bar class="movie-box__sort-bar"></app-sort-bar>
+            </div>
+            <div class="movie-box__items">
+                @if(sortMovie$ | async; as movies){
+                @for (movie of movies | filterSearch: searchText; track movie.id) {
+                <app-movie-card [dataValue]="movie" [showActionBar]="false"></app-movie-card>
+                }
+                }
+
+            </div>
+        </article>
+    </div>
+
+</section>

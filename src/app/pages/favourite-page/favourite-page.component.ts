@@ -1,9 +1,8 @@
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
-import { Movie } from '@/app/movie-data/type-declorate'
 import { deleteMovieFromFavouriteList } from '@/app/store/movie-store/movieActions'
 import { selectFavouriteList } from '@/app/store/movie-store/movieSelector'
 import { AsyncPipe } from '@angular/common'
-import { Component, DoCheck, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 
 @Component({

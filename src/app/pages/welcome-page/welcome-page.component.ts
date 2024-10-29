@@ -1,12 +1,11 @@
-import { Component } from '@angular/core'
-import { Movie } from '@/app/movie-data/type-declorate'
+import { Component, OnInit } from '@angular/core'
 import { MovieCardComponent } from '@/app/components/movie-card/movie-card.component'
 import { RouterLink } from '@angular/router'
-import { Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectAllMovieList } from '@/app/store/movie-store/movieSelector'
 import { AsyncPipe } from '@angular/common'
-import { MessageService } from 'primeng/api'
+import { selectUserName } from '@/app/store/user-store/userSelectors'
+import { ClearObservable } from '@/app/shared/clearObserveble'
 
 @Component({
     selector: 'app-welcome-page',
@@ -15,9 +14,18 @@ import { MessageService } from 'primeng/api'
     templateUrl: './welcome-page.component.html',
     styleUrl: './welcome-page.component.scss'
 })
-export class WelcomePageComponent {
-    sub?: Subscription
-    movieData?: Movie[]
+export class WelcomePageComponent extends ClearObservable implements OnInit {
     allMovieList$ = this.store.select(selectAllMovieList)
-    constructor(private store: Store) {}
+    userProfile$ = this.store.select(selectUserName)
+    isShowBar: boolean = false
+    constructor(private store: Store) {
+        super()
+    }
+    ngOnInit(): void {
+        this.userProfile$.subscribe((val) => {
+            if (val) {
+                this.isShowBar = true
+            }
+        })
+    }
 }

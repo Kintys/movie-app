@@ -10,7 +10,9 @@ import { MovieReducer } from './store/movie-store/movieReducer'
 import { MovieEffects } from './store/movie-store/movieEffects'
 import { UserReducers } from './store/user-store/userReducers'
 import { UserEffect } from './store/user-store/userEffects'
-import { MessageService } from 'primeng/api'
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
+import { getAuth, provideAuth } from '@angular/fire/auth'
+import { environment } from '@/environments/environment.development'
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -19,6 +21,8 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(),
         provideStore({ movieState: MovieReducer, userState: UserReducers }),
         provideEffects([MovieEffects, UserEffect]),
-        provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+        provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+        provideFirebaseApp(() => initializeApp(environment.firebaseAPI)),
+        provideAuth(() => getAuth())
     ]
 }

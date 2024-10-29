@@ -1,8 +1,15 @@
 import { environment } from '@/environments/environment.development'
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
-import { SessionModule, TokenModule } from '../movie-data/type-declorate'
-import { switchMap, tap } from 'rxjs'
+import { Injectable, inject } from '@angular/core'
+import { SessionModule, TokenModule } from '../shared/type-declorate'
+import { Observable, forkJoin, from, of, switchMap } from 'rxjs'
+import {
+    Auth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from '@angular/fire/auth'
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +20,7 @@ export class AuthenticationService {
     readonly apiToken = environment.apiToken
     readonly userName = environment.userName
     readonly userPass = environment.userPassword
-    id = {}
+    private auth: Auth = inject(Auth)
     constructor(private http: HttpClient) {}
     public createNewSession() {
         return this.http.get<TokenModule>(`${this.apiUrl}authentication/token/new${this.apiKey}`).pipe(
@@ -28,13 +35,30 @@ export class AuthenticationService {
                 )
             }),
             switchMap((validRes) => {
-                return this.http.post<SessionModule>(`${this.apiUrl}authentication/session/new${this.apiKey}`, {
-                    request_token: validRes.request_token
-                })
+                return this.http
+                    .post<SessionModule>(`${this.apiUrl}authentication/session/new${this.apiKey}`, {
+                        request_token: validRes.request_token
+                    })
+                    .pipe(
+                        switchMap((sessionId) => {
+                            return forkJoin({
+                                sessionId: of(sessionId.session_id),
+                                accountInfo: this.http.get<any>(
+                                    `${this.apiUrl}account${this.apiKey}&session_id=${sessionId.session_id}`
+                                )
+                            })
+                        })
+                    )
             })
         )
     }
-    getAccountDetails(sessionId: string | null) {
-        return this.http.get<any>(`${this.apiUrl}account${this.apiKey}&session_id=${sessionId}`)
+    singInWithGoogle(): Observable<any> {
+        return from(signInWithPopup(this.auth, new GoogleAuthProvider()))
+    }
+    createNewUser(email: string, password: string): Observable<any> {
+        return from(createUserWithEmailAndPassword(this.auth, email, password))
+    }
+    logIn(email: string, password: string): Observable<any> {
+        return from(signInWithEmailAndPassword(this.auth, email, password))
     }
 }

@@ -1,0 +1,54 @@
+<p-dialog [modal]="true" header="Subscribe" (visibleChange)="closeDialog($event)" [(visible)]="isVisiblePopup" [style]="{ width: '60rem' , height: '82rem', overflow: 'hidden' }">
+    <form [formGroup]="subscribeForm" (ngSubmit)="onSubmit($event)" class="subscribe-form">
+        <h3 class="subscribe-form__title">You can subscribe to our website and receive updates. Please fill out the form</h3>
+        <div class="subscribe-form__inputs-wrapper">
+            <label class="subscribe-form__label">{{generalComponentText?.name?.label}}</label>
+            <p-iconField iconPosition="right" class="subscribe-form__input-field">
+                <p-inputIcon styleClass="pi pi-user" />
+                <input name="user_name" pInputText id="email" type="text" formControlName="name" autocomplete="off" aria-describedby="name_error" class="subscribe-form__input" style="width: 100%;" />
+            </p-iconField>
+            <small id="name_error" class="subscribe-form__error" [ngClass]="{'subscribe-form__error--show': invalidStatus.name.isShowErrorMassage}">
+                {{invalidStatus.name.textError}}
+            </small>
+        </div>
+        <div class="subscribe-form__inputs-wrapper">
+            <label class="subscribe-form__label">{{generalComponentText?.email?.label}}</label>
+            <p-iconField iconPosition="right" class="subscribe-form__input-field">
+                <p-inputIcon styleClass="pi pi-at" />
+                <input name="user_email" pInputText id="email" type="email" formControlName="email" autocomplete="on" aria-describedby="email_error" class="subscribe-form__input" style="width: 100%;" />
+            </p-iconField>
+            <small id="email_error" class="subscribe-form__error" [ngClass]="{'subscribe-form__error--show': invalidStatus.email.isShowErrorMassage}">
+                {{invalidStatus.email.textError}}
+            </small>
+        </div>
+        <!-- Була ідея відправити на firestore Database як додаткові параметри для користувача, але бракує часу для реалізація  -->
+        @if(genreParams$| async; as genresArr ){
+        <div class="subscribe-form__inputs-wrapper">
+            <label class="subscribe-form__label">{{generalComponentText?.genre?.label}}</label>
+            <p-multiSelect appendTo="body" [options]="genresArr" formControlName="categoryMovie" optionLabel="name" placeholder="Select Cities" display="chip" aria-describedby="genre_error" [style]="{'width':'100%'}" />
+        </div>
+        }
+        <div class="subscribe-form__inputs-wrapper">
+            <label class="subscribe-form__label">{{generalComponentText?.date?.label}}</label>
+            <p-calendar appendTo="body" name="user_date" [iconDisplay]="'input'" [style]="{'width':'100%'}" [showIcon]="true" inputId="icondisplay" formControlName="dateAge" [showButtonBar]="true" dateFormat="dd.mm.yy" dataType="string" class="subscribe-form__input" aria-describedby="date_error" />
+            <small id="date_error" class="subscribe-form__error" [ngClass]="{'subscribe-form__error--show': invalidStatus.dateAge}">
+                {{invalidStatus.dateAge.textError}}
+            </small>
+        </div>
+
+        <div class="subscribe-form__inputs-wrapper checkbox-wrapper">
+            <p class="checkbox-wrapper__box">
+                <p-checkbox formControlName="agreement" [binary]="true" aria-describedby="agreement_error" />
+                {{generalComponentText?.agreement?.text}}
+                <a (click)="showAgreementDialog()" class="checkbox-wrapper__button">Privacy Policy</a>
+            </p>
+            <small id="agreement_error" class="subscribe-form__error" [ngClass]="{'subscribe-form__error--show': invalidStatus.agreement.isShowErrorMassage}">
+                {{invalidStatus.agreement.textError}}
+            </small>
+            <p-dialog header="Privacy Policy" [modal]="true" [(visible)]="openDialog" [style]="{ width: '50rem' }">
+                <app-privacy-policy></app-privacy-policy>
+            </p-dialog>
+        </div>
+        <button type="submit" pButton icon="pi pi-send" class="subscribe-form__button p-button-warning" label="Subscribe"></button>
+    </form>
+</p-dialog>

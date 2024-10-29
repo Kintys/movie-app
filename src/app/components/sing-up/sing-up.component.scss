@@ -1,0 +1,104 @@
+@import "@asset/scss/function.scss";
+.sing-up {
+    // max-width: toRem(400);
+    // min-height: toRem(300);
+    // border: 5px solid black;
+    // padding: toRem(30);
+    // // .login-form__body
+    // border-radius: toRem(20);
+    // box-shadow: toRem(5) toRem(5) toRem(10) rgba(95, 75, 75, 0.5);
+    // background-color: rgba(255, 255, 255, 0.986);
+    &__body {
+        display: grid;
+        justify-items: center;
+    }
+    &__inputs {
+        &:not(:last-child) {
+            margin-bottom: toRem(5);
+        }
+    }
+    // .login-form__label
+
+    &__label {
+        text-transform: capitalize;
+        color: white;
+    }
+
+    // .login-form__username
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: toRem(10);
+    }
+}
+
+.inputs {
+    // .inputs__wrapper
+
+    &__wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(5);
+        min-height: toRem(90);
+    }
+
+    // .inputs__label
+
+    &__label {
+        text-transform: capitalize;
+        color: white;
+    }
+
+    // .inputs__error
+
+    &__error {
+        position: absolute;
+        bottom: toRem(8);
+        left: 0;
+        color: rgba(255, 0, 0, 0.941);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        &--show {
+            opacity: 1;
+            visibility: visible;
+            bottom: toRem(5);
+        }
+    }
+
+    ::ng-deep {
+        ul {
+            padding: 0;
+        }
+        .p-button {
+            &:hover {
+                background: rgb(38, 196, 151);
+            }
+        }
+    }
+}
+
+.password {
+    // .password__list
+    &__label {
+        padding-bottom: toRem(10);
+        border-bottom: toRem(1) solid white;
+    }
+    &__list {
+        font-size: toRem(14);
+        li {
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: toRem(5);
+        }
+        li:before {
+            content: "";
+            width: toRem(5);
+            height: toRem(5);
+            border-radius: 50%;
+            background-color: #fafafa;
+        }
+    }
+}
